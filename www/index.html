@@ -1,1122 +1,1551 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
 
-    <meta charset="UTF-8">
+<title>Advanced Crypto AI</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-    <title>Advanced Crypto AI</title>
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#070b14;
+    color:#eef2ff;
+    min-height:100vh;
+}
 
-    <style>
+.header{
+    padding:16px;
+    background:#0d1324;
+    border-bottom:1px solid #202943;
+}
 
-        * {
-            box-sizing: border-box;
-        }
+.title{
+    font-size:23px;
+    font-weight:800;
+}
 
-        body {
-            margin: 0;
-            padding: 20px;
-            background: #0b0f14;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-        }
+.subtitle{
+    margin-top:4px;
+    color:#8d9ab8;
+    font-size:12px;
+}
 
-        h1 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
+.status{
+    margin-top:10px;
+    font-size:12px;
+    color:#55e6a5;
+}
 
-        .box {
-            background: #151b24;
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 15px;
-        }
+.controls{
+    display:flex;
+    gap:8px;
+    padding:12px;
+    overflow-x:auto;
+    background:#0a0f1c;
+}
 
-        .title {
-            font-size: 13px;
-            color: #8d99a8;
-            margin-bottom: 8px;
-        }
+select{
+    background:#11192b;
+    color:#fff;
+    border:1px solid #293653;
+    border-radius:8px;
+    padding:10px 12px;
+    font-weight:700;
+}
 
-        .price {
-            font-size: 34px;
-            font-weight: bold;
-        }
+.market{
+    padding:14px;
+}
 
-        .value {
-            font-size: 20px;
-            font-weight: bold;
-        }
+.price-card{
+    background:#101729;
+    border:1px solid #222e49;
+    border-radius:14px;
+    padding:16px;
+}
 
-        .row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #252d38;
-            gap: 10px;
-        }
+.symbol{
+    color:#8f9bb8;
+    font-size:13px;
+}
 
-        .row:last-child {
-            border-bottom: none;
-        }
+.price{
+    margin-top:5px;
+    font-size:30px;
+    font-weight:800;
+}
 
-        .green {
-            color: #38e89a;
-        }
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    margin-top:14px;
+}
 
-        .red {
-            color: #ff5964;
-        }
+.stat{
+    background:#0b1120;
+    border:1px solid #1c2740;
+    border-radius:10px;
+    padding:10px;
+}
 
-        .yellow {
-            color: #ffc857;
-        }
+.stat-label{
+    color:#7f8ba8;
+    font-size:11px;
+}
 
-        .blue {
-            color: #58a6ff;
-        }
+.stat-value{
+    margin-top:5px;
+    font-size:14px;
+    font-weight:700;
+}
 
-        .gray {
-            color: #8d99a8;
-        }
+.chart-wrap{
+    margin:0 14px 14px;
+    background:#0d1424;
+    border:1px solid #202c47;
+    border-radius:14px;
+    overflow:hidden;
+}
 
-        #status {
-            margin-top: 10px;
-            font-size: 14px;
-        }
+.chart-head{
+    padding:12px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #202c47;
+}
 
-        #updated {
-            margin-top: 8px;
-            color: #777;
-            font-size: 12px;
-        }
+.chart-title{
+    font-size:14px;
+    font-weight:800;
+}
 
-    </style>
+.chart-time{
+    color:#8794b1;
+    font-size:12px;
+}
 
+canvas{
+    display:block;
+    width:100%;
+    height:300px;
+}
+
+.section-title{
+    padding:8px 14px 10px;
+    font-size:18px;
+    font-weight:800;
+}
+
+.ai-summary{
+    margin:0 14px 16px;
+    padding:16px;
+    border-radius:14px;
+    background:#111a2d;
+    border:1px solid #293754;
+}
+
+.ai-summary h2{
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.summary-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.summary-item{
+    background:#0a1020;
+    border-radius:9px;
+    padding:10px;
+}
+
+.summary-label{
+    color:#8290ad;
+    font-size:10px;
+}
+
+.summary-value{
+    margin-top:4px;
+    font-size:13px;
+    font-weight:700;
+}
+
+.timeframes{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:0 14px 30px;
+}
+
+.tf-card{
+    background:#0f1729;
+    border:1px solid #26334f;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.tf-head{
+    padding:13px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#121c31;
+}
+
+.tf-name{
+    font-size:15px;
+    font-weight:800;
+}
+
+.signal{
+    padding:6px 10px;
+    border-radius:7px;
+    font-size:11px;
+    font-weight:900;
+}
+
+.long{
+    background:#123d2d;
+    color:#5ff0ae;
+}
+
+.short{
+    background:#431d27;
+    color:#ff7d94;
+}
+
+.wait{
+    background:#302b16;
+    color:#f3d76b;
+}
+
+.tf-body{
+    padding:14px;
+}
+
+.trade-price{
+    font-size:23px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.trade-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.trade-box{
+    background:#0a1020;
+    padding:10px;
+    border-radius:9px;
+}
+
+.trade-label{
+    color:#7886a5;
+    font-size:10px;
+}
+
+.trade-value{
+    margin-top:4px;
+    font-size:13px;
+    font-weight:800;
+}
+
+.reason{
+    margin-top:12px;
+    padding:12px;
+    background:#0a1020;
+    border-radius:9px;
+    border-left:3px solid #64748b;
+}
+
+.reason-title{
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.reason-text{
+    color:#aeb8ce;
+    font-size:12px;
+    line-height:1.55;
+}
+
+.loading{
+    color:#8794b1;
+    padding:20px;
+    text-align:center;
+}
+
+.footer{
+    padding:20px 14px 35px;
+    text-align:center;
+    color:#66738f;
+    font-size:10px;
+    line-height:1.5;
+}
+</style>
 </head>
-
 
 <body>
 
+<header class="header">
+    <div class="title">Advanced Crypto AI</div>
+    <div class="subtitle">
+        Binance Market Data • Multi-Timeframe AI Analysis
+    </div>
+    <div class="status" id="status">● INITIALIZING</div>
+</header>
 
-<h1>
-    Advanced Crypto AI
-</h1>
+<div class="controls">
+    <select id="coinSelect">
+        <option value="BTCUSDT">BTC / USDT</option>
+        <option value="ETHUSDT">ETH / USDT</option>
+        <option value="XRPUSDT">XRP / USDT</option>
+        <option value="SOLUSDT">SOL / USDT</option>
+        <option value="LINKUSDT">LINK / USDT</option>
+        <option value="DOGEUSDT">DOGE / USDT</option>
+        <option value="PEPEUSDT">PEPE / USDT</option>
+        <option value="BONKUSDT">BONK / USDT</option>
+        <option value="NEARUSDT">NEAR / USDT</option>
+    </select>
 
+    <select id="chartTf">
+        <option value="5m">5M</option>
+        <option value="15m">15M</option>
+        <option value="30m">30M</option>
+        <option value="1h" selected>1H</option>
+        <option value="4h">4H</option>
+        <option value="12h">12H</option>
+        <option value="1d">1D</option>
+        <option value="3d">3D</option>
+        <option value="1w">1W</option>
+    </select>
+</div>
 
-<!-- ========================================= -->
-<!-- BTC PRICE -->
-<!-- ========================================= -->
+<section class="market">
 
-<div class="box">
+    <div class="price-card">
 
-    <div class="title">
-        BTC / USDT
+        <div class="symbol" id="symbolName">BTC / USDT</div>
+
+        <div class="price" id="price">--</div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="stat-label">24H CHANGE</div>
+                <div class="stat-value" id="change">--</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">24H HIGH</div>
+                <div class="stat-value" id="high">--</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">24H LOW</div>
+                <div class="stat-value" id="low">--</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">24H BTC/VOLUME</div>
+                <div class="stat-value" id="volume">--</div>
+            </div>
+
+        </div>
+
     </div>
 
-    <div
-        id="btcPrice"
-        class="price"
-    >
-        Loading...
+</section>
+
+<div class="chart-wrap">
+
+    <div class="chart-head">
+        <div class="chart-title" id="chartTitle">BTC / USDT — 1H</div>
+        <div class="chart-time" id="chartTime">Loading...</div>
     </div>
 
-    <div
-        id="status"
-        class="green"
-    >
-        ● CONNECTING...
-    </div>
-
-    <div id="updated">
-        Waiting for data...
-    </div>
+    <canvas id="chart"></canvas>
 
 </div>
 
-
-<!-- ========================================= -->
-<!-- BTC VOLUME -->
-<!-- ========================================= -->
-
-<div class="box">
-
-    <div class="title">
-        BTC MARKET VOLUME
-    </div>
-
-
-    <div class="row">
-
-        <span>
-            1H Volume
-        </span>
-
-        <span
-            id="volume1h"
-            class="value"
-        >
-            Loading...
-        </span>
-
-    </div>
-
-
-    <div class="row">
-
-        <span>
-            24H Volume
-        </span>
-
-        <span
-            id="volume24h"
-            class="value"
-        >
-            Loading...
-        </span>
-
-    </div>
-
+<div class="section-title">
+    AI MARKET OVERVIEW
 </div>
 
-
-<!-- ========================================= -->
-<!-- BTC LIQUIDATIONS -->
-<!-- ========================================= -->
-
-<div class="box">
-
-    <div class="title">
-        BTC LIQUIDATIONS — PUBLIC DATA
+<div class="ai-summary" id="aiSummary">
+    <div class="loading">
+        AI is analyzing market structure...
     </div>
-
-
-    <div class="row">
-
-        <span>
-            Long Liquidation
-        </span>
-
-        <span
-            id="longLiquidation"
-            class="value red"
-        >
-            Loading...
-        </span>
-
-    </div>
-
-
-    <div class="row">
-
-        <span>
-            Short Liquidation
-        </span>
-
-        <span
-            id="shortLiquidation"
-            class="value green"
-        >
-            Loading...
-        </span>
-
-    </div>
-
-
-    <div class="row">
-
-        <span>
-            Total Liquidation
-        </span>
-
-        <span
-            id="totalLiquidation"
-            class="value yellow"
-        >
-            Loading...
-        </span>
-
-    </div>
-
-
-    <div class="row">
-
-        <span>
-            Liquidation Events
-        </span>
-
-        <span
-            id="liquidationEvents"
-            class="value blue"
-        >
-            Loading...
-        </span>
-
-    </div>
-
-
-    <div class="row">
-
-        <span>
-            Largest Recent Liquidation
-        </span>
-
-        <span
-            id="largestLiquidation"
-            class="value yellow"
-        >
-            Loading...
-        </span>
-
-    </div>
-
-
-    <div class="row">
-
-        <span>
-            Data Source
-        </span>
-
-        <span
-            id="liquidationSource"
-            class="value gray"
-        >
-            MarginPad
-        </span>
-
-    </div>
-
 </div>
 
+<div class="section-title">
+    AI MULTI-TIMEFRAME TRADES
+</div>
+
+<div class="timeframes" id="timeframes">
+    <div class="loading">
+        Loading multi-timeframe analysis...
+    </div>
+</div>
+
+<div class="footer">
+    Advanced Crypto AI uses Binance market data and an internal
+    rule-based quantitative analysis engine. Signals are informational
+    and are not guaranteed trading results.
+</div>
 
 <script>
 
+const API = "https://api.binance.com/api/v3";
 
-/* ========================================= */
-/* BINANCE API */
-/* ========================================= */
+const TIMEFRAMES = [
+    "5m",
+    "15m",
+    "30m",
+    "1h",
+    "4h",
+    "12h",
+    "1d",
+    "3d",
+    "1w"
+];
 
+let currentSymbol = "BTCUSDT";
+let marketData = {};
+let timeframeData = {};
 
-const PRICE_API =
-    "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT";
+const $ = id => document.getElementById(id);
 
+function setStatus(text){
+    $("status").textContent = text;
+}
 
-const KLINE_API =
-    "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=24";
+function fmt(value, digits = 2){
 
-
-/* ========================================= */
-/* PUBLIC LIQUIDATION API */
-/* ========================================= */
-
-
-/*
- * 24H aggregated liquidation data
- */
-
-const LIQUIDATION_API =
-    "https://marginpad.io/api/v1/liquidations";
-
-
-/*
- * Recent BTC liquidation events
- */
-
-const BTC_LIVE_LIQUIDATION_API =
-    "https://marginpad.io/api/v1/liquidations/live?symbol=BTC&limit=400";
-
-
-/* ========================================= */
-/* FORMAT HELPERS */
-/* ========================================= */
-
-
-function formatUSD(value) {
-
-    const number = Number(value);
-
-    if (!Number.isFinite(number)) {
+    if(value === null || value === undefined || !isFinite(value)){
         return "--";
     }
 
-    return "$" +
-        number.toLocaleString(
-            "en-US",
+    if(Math.abs(value) >= 1000){
+        return value.toLocaleString(
+            undefined,
             {
-                maximumFractionDigits: 0
+                maximumFractionDigits:digits
             }
         );
-}
-
-
-function formatNumber(value) {
-
-    const number = Number(value);
-
-    if (!Number.isFinite(number)) {
-        return "--";
     }
 
-    return number.toLocaleString(
-        "en-US",
-        {
-            maximumFractionDigits: 0
-        }
-    );
+    if(Math.abs(value) < 0.01){
+        return value.toFixed(8);
+    }
+
+    return value.toFixed(digits);
 }
 
+function clamp(value,min,max){
+    return Math.max(min,Math.min(max,value));
+}
 
-/* ========================================= */
-/* BINANCE MARKET DATA */
-/* ========================================= */
+function average(arr){
 
+    if(!arr.length) return 0;
 
-async function loadMarket() {
+    return arr.reduce((a,b)=>a+b,0)/arr.length;
+}
 
-    try {
+function ema(values, period){
 
+    if(values.length < period){
+        return average(values);
+    }
 
-        /* ================================= */
-        /* BTC PRICE */
-        /* ================================= */
+    const k = 2/(period+1);
 
+    let e = average(values.slice(0,period));
 
-        const priceResponse =
-            await fetch(
-                PRICE_API
-            );
+    for(let i=period;i<values.length;i++){
+        e = values[i]*k + e*(1-k);
+    }
 
+    return e;
+}
 
-        if (!priceResponse.ok) {
+function sma(values,period){
 
-            throw new Error(
-                "Binance price error " +
-                priceResponse.status
-            );
+    if(values.length < period){
+        return average(values);
+    }
 
+    return average(values.slice(-period));
+}
+
+function rsi(values,period=14){
+
+    if(values.length < period+1){
+        return 50;
+    }
+
+    let gain = 0;
+    let loss = 0;
+
+    for(let i=values.length-period;i<values.length;i++){
+
+        const diff = values[i]-values[i-1];
+
+        if(diff > 0){
+            gain += diff;
+        }else{
+            loss += Math.abs(diff);
         }
+    }
 
+    if(loss === 0) return 100;
 
-        const priceData =
-            await priceResponse.json();
+    const rs = gain/loss;
 
+    return 100-(100/(1+rs));
+}
 
-        const btcPrice =
-            Number(
-                priceData.price
-            );
+function atr(candles,period=14){
 
+    if(candles.length < period+1){
+        return 0;
+    }
 
-        document.getElementById(
-            "btcPrice"
-        ).textContent =
+    const tr = [];
 
-            "$" +
+    for(let i=1;i<candles.length;i++){
 
-            btcPrice.toLocaleString(
-                "en-US",
-                {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                }
-            );
+        const high = candles[i].high;
+        const low = candles[i].low;
+        const prev = candles[i-1].close;
 
+        tr.push(
+            Math.max(
+                high-low,
+                Math.abs(high-prev),
+                Math.abs(low-prev)
+            )
+        );
+    }
 
-        /* ================================= */
-        /* BTC VOLUME */
-        /* ================================= */
+    return sma(tr,period);
+}
 
+function macd(values){
 
-        const volumeResponse =
-            await fetch(
-                KLINE_API
-            );
+    const fast = ema(values,12);
+    const slow = ema(values,26);
 
+    const line = fast-slow;
 
-        if (!volumeResponse.ok) {
+    const macdValues = [];
 
-            throw new Error(
-                "Binance volume error " +
-                volumeResponse.status
-            );
+    for(let i=26;i<values.length;i++){
 
+        const f = ema(values.slice(0,i+1),12);
+        const s = ema(values.slice(0,i+1),26);
+
+        macdValues.push(f-s);
+    }
+
+    const signal = ema(macdValues,9);
+
+    return {
+        line,
+        signal,
+        histogram:line-signal
+    };
+}
+
+function parseCandles(rows){
+
+    return rows.map(r => ({
+        time:Number(r[0]),
+        open:Number(r[1]),
+        high:Number(r[2]),
+        low:Number(r[3]),
+        close:Number(r[4]),
+        volume:Number(r[5])
+    }));
+
+}
+
+async function fetchJSON(url){
+
+    const response = await fetch(url);
+
+    if(!response.ok){
+        throw new Error(
+            "HTTP " + response.status
+        );
+    }
+
+    return response.json();
+}
+
+async function loadMarket(){
+
+    try{
+
+        const ticker = await fetchJSON(
+            `${API}/ticker/24hr?symbol=${currentSymbol}`
+        );
+
+        marketData = ticker;
+
+        $("symbolName").textContent =
+            currentSymbol.replace("USDT"," / USDT");
+
+        $("price").textContent =
+            "$" + fmt(Number(ticker.lastPrice),2);
+
+        $("change").textContent =
+            Number(ticker.priceChangePercent).toFixed(2) + "%";
+
+        $("high").textContent =
+            "$" + fmt(Number(ticker.highPrice),2);
+
+        $("low").textContent =
+            "$" + fmt(Number(ticker.lowPrice),2);
+
+        $("volume").textContent =
+            fmt(Number(ticker.volume),2);
+
+    }catch(error){
+
+        setStatus("● MARKET DATA ERROR");
+
+        console.error(error);
+
+    }
+
+}
+
+async function loadTimeframe(tf){
+
+    const rows = await fetchJSON(
+        `${API}/klines?symbol=${currentSymbol}&interval=${tf}&limit=150`
+    );
+
+    timeframeData[tf] = parseCandles(rows);
+
+    return timeframeData[tf];
+}
+
+function calculateIndicators(candles){
+
+    const closes = candles.map(c=>c.close);
+    const volumes = candles.map(c=>c.volume);
+
+    const price = closes[closes.length-1];
+
+    const ema9 = ema(closes,9);
+    const ema21 = ema(closes,21);
+    const ema50 = ema(closes,50);
+    const ema100 = ema(closes,100);
+
+    const r = rsi(closes,14);
+    const a = atr(candles,14);
+    const m = macd(closes);
+
+    const volAvg = sma(volumes,20);
+    const currentVol = volumes[volumes.length-1];
+
+    const recent = candles.slice(-30);
+
+    const resistance = Math.max(
+        ...recent.slice(0,-1).map(c=>c.high)
+    );
+
+    const support = Math.min(
+        ...recent.slice(0,-1).map(c=>c.low)
+    );
+
+    const previousHigh = Math.max(
+        ...candles.slice(-11,-1).map(c=>c.high)
+    );
+
+    const previousLow = Math.min(
+        ...candles.slice(-11,-1).map(c=>c.low)
+    );
+
+    const bullishStructure =
+        ema9 > ema21 &&
+        ema21 > ema50;
+
+    const bearishStructure =
+        ema9 < ema21 &&
+        ema21 < ema50;
+
+    const breakout =
+        price > previousHigh &&
+        currentVol > volAvg*1.15;
+
+    const breakdown =
+        price < previousLow &&
+        currentVol > volAvg*1.15;
+
+    let trend = "NEUTRAL";
+
+    if(bullishStructure) trend = "BULLISH";
+    if(bearishStructure) trend = "BEARISH";
+
+    return {
+        price,
+        ema9,
+        ema21,
+        ema50,
+        ema100,
+        rsi:r,
+        atr:a,
+        macd:m,
+        volAvg,
+        currentVol,
+        resistance,
+        support,
+        previousHigh,
+        previousLow,
+        breakout,
+        breakdown,
+        trend
+    };
+
+}
+
+function scoreMarket(indicators){
+
+    let score = 0;
+    const reasons = [];
+
+    if(indicators.price > indicators.ema9){
+        score += 1;
+        reasons.push("price above EMA9");
+    }else{
+        score -= 1;
+        reasons.push("price below EMA9");
+    }
+
+    if(indicators.ema9 > indicators.ema21){
+        score += 1;
+        reasons.push("EMA9 above EMA21");
+    }else{
+        score -= 1;
+        reasons.push("EMA9 below EMA21");
+    }
+
+    if(indicators.ema21 > indicators.ema50){
+        score += 1;
+        reasons.push("EMA21 above EMA50");
+    }else{
+        score -= 1;
+        reasons.push("EMA21 below EMA50");
+    }
+
+    if(indicators.price > indicators.ema100){
+        score += 1;
+        reasons.push("price above EMA100");
+    }else{
+        score -= 1;
+        reasons.push("price below EMA100");
+    }
+
+    if(indicators.rsi >= 52 && indicators.rsi <= 70){
+        score += 1;
+        reasons.push("bullish RSI momentum");
+    }
+
+    if(indicators.rsi <= 48 && indicators.rsi >= 30){
+        score -= 1;
+        reasons.push("bearish RSI momentum");
+    }
+
+    if(indicators.macd.histogram > 0){
+        score += 1;
+        reasons.push("positive MACD momentum");
+    }else{
+        score -= 1;
+        reasons.push("negative MACD momentum");
+    }
+
+    if(indicators.currentVol > indicators.volAvg*1.15){
+        if(indicators.price > indicators.ema21){
+            score += 1;
+            reasons.push("volume expansion supports upside");
+        }else{
+            score -= 1;
+            reasons.push("volume expansion supports downside");
         }
+    }
 
+    if(indicators.breakout){
+        score += 3;
+        reasons.push("confirmed resistance breakout with volume");
+    }
+
+    if(indicators.breakdown){
+        score -= 3;
+        reasons.push("confirmed support breakdown with volume");
+    }
+
+    return {
+        score,
+        reasons
+    };
+
+}
+
+function buildTrade(tf, candles){
+
+    const ind = calculateIndicators(candles);
+
+    const scored = scoreMarket(ind);
+
+    const score = scored.score;
+
+    let signal = "WAIT";
+
+    if(score >= 5){
+        signal = "LONG";
+    }
+
+    if(score <= -5){
+        signal = "SHORT";
+    }
+
+    const price = ind.price;
+
+    let entryLow = price;
+    let entryHigh = price;
+
+    let sl;
+    let tp1;
+    let tp2;
+    let tp3;
+
+    const a = ind.atr || price*0.01;
+
+    if(signal === "LONG"){
+
+        entryLow =
+            Math.max(
+                ind.ema21,
+                ind.support
+            );
+
+        entryHigh =
+            price + a*0.20;
+
+        sl =
+            Math.min(
+                ind.support-a*0.35,
+                price-a*1.25
+            );
+
+        const risk =
+            Math.max(
+                price-sl,
+                a
+            );
+
+        tp1 = price + risk*1.2;
+        tp2 = price + risk*2.0;
+        tp3 = price + risk*3.0;
+
+    }else if(signal === "SHORT"){
+
+        entryLow =
+            price-a*0.20;
+
+        entryHigh =
+            Math.min(
+                ind.ema21,
+                ind.resistance
+            );
+
+        sl =
+            Math.max(
+                ind.resistance+a*0.35,
+                price+a*1.25
+            );
+
+        const risk =
+            Math.max(
+                sl-price,
+                a
+            );
+
+        tp1 = price-risk*1.2;
+        tp2 = price-risk*2.0;
+        tp3 = price-risk*3.0;
+
+    }else{
+
+        sl = price-a;
+        tp1 = price+a;
+        tp2 = price+a*2;
+        tp3 = price+a*3;
+
+    }
+
+    const confidence =
+        clamp(
+            50 + Math.abs(score)*7,
+            50,
+            95
+        );
+
+    let basis = [];
+
+    if(ind.breakout){
+        basis.push(
+            "resistance breakout + volume expansion"
+        );
+    }
+
+    if(ind.breakdown){
+        basis.push(
+            "support breakdown + volume expansion"
+        );
+    }
+
+    basis.push(
+        ind.trend.toLowerCase()+" EMA structure"
+    );
+
+    basis.push(
+        "RSI "+ind.rsi.toFixed(1)
+    );
+
+    basis.push(
+        ind.macd.histogram >= 0
+            ? "positive MACD momentum"
+            : "negative MACD momentum"
+    );
+
+    basis.push(
+        ind.currentVol > ind.volAvg
+            ? "volume above average"
+            : "volume below average"
+    );
+
+    let tpBasis;
+
+    if(signal === "LONG"){
+
+        tpBasis =
+            "TPs are projected from ATR volatility, current structure and risk multiples.";
+
+    }else if(signal === "SHORT"){
+
+        tpBasis =
+            "TPs are projected from ATR volatility, current structure and risk multiples.";
+
+    }else{
+
+        tpBasis =
+            "No directional TP is activated because the timeframe does not have sufficient signal alignment.";
+
+    }
+
+    let slBasis;
+
+    if(signal === "LONG"){
+
+        slBasis =
+            "SL is placed below structural support/volatility invalidation.";
+
+    }else if(signal === "SHORT"){
+
+        slBasis =
+            "SL is placed above structural resistance/volatility invalidation.";
+
+    }else{
+
+        slBasis =
+            "Reference risk level based on current ATR; no active trade.";
+
+    }
+
+    const risk =
+        signal === "LONG"
+            ? price-sl
+            : signal === "SHORT"
+                ? sl-price
+                : a;
+
+    const reward =
+        signal === "LONG"
+            ? tp2-price
+            : signal === "SHORT"
+                ? price-tp2
+                : a;
+
+    const rr =
+        risk > 0
+            ? reward/risk
+            : 0;
+
+    return {
+        tf,
+        signal,
+        confidence,
+        price,
+        entryLow,
+        entryHigh,
+        sl,
+        tp1,
+        tp2,
+        tp3,
+        rr,
+        trend:ind.trend,
+        rsi:ind.rsi,
+        atr:a,
+        basis:basis.join(" • "),
+        tpBasis,
+        slBasis,
+        score,
+        indicators:ind
+    };
+
+}
+
+function renderTrade(trade){
+
+    let signalClass = "wait";
+
+    if(trade.signal === "LONG"){
+        signalClass = "long";
+    }
+
+    if(trade.signal === "SHORT"){
+        signalClass = "short";
+    }
+
+    const entry =
+        trade.signal === "WAIT"
+            ? "WAIT FOR CONFIRMATION"
+            : `${fmt(trade.entryLow)} — ${fmt(trade.entryHigh)}`;
+
+    return `
+    <div class="tf-card">
+
+        <div class="tf-head">
+
+            <div class="tf-name">
+                ${trade.tf.toUpperCase()}
+            </div>
+
+            <div class="signal ${signalClass}">
+                ${trade.signal}
+            </div>
+
+        </div>
+
+        <div class="tf-body">
+
+            <div class="trade-price">
+                ${fmt(trade.price)}
+            </div>
+
+            <div class="trade-grid">
+
+                <div class="trade-box">
+                    <div class="trade-label">ENTRY ZONE</div>
+                    <div class="trade-value">${entry}</div>
+                </div>
+
+                <div class="trade-box">
+                    <div class="trade-label">CONFIDENCE</div>
+                    <div class="trade-value">
+                        ${trade.confidence.toFixed(0)}%
+                    </div>
+                </div>
+
+                <div class="trade-box">
+                    <div class="trade-label">STOP LOSS</div>
+                    <div class="trade-value">
+                        ${fmt(trade.sl)}
+                    </div>
+                </div>
+
+                <div class="trade-box">
+                    <div class="trade-label">TP1</div>
+                    <div class="trade-value">
+                        ${fmt(trade.tp1)}
+                    </div>
+                </div>
+
+                <div class="trade-box">
+                    <div class="trade-label">TP2</div>
+                    <div class="trade-value">
+                        ${fmt(trade.tp2)}
+                    </div>
+                </div>
+
+                <div class="trade-box">
+                    <div class="trade-label">TP3</div>
+                    <div class="trade-value">
+                        ${fmt(trade.tp3)}
+                    </div>
+                </div>
+
+                <div class="trade-box">
+                    <div class="trade-label">RISK / REWARD</div>
+                    <div class="trade-value">
+                        1 : ${trade.rr.toFixed(2)}
+                    </div>
+                </div>
+
+                <div class="trade-box">
+                    <div class="trade-label">TREND</div>
+                    <div class="trade-value">
+                        ${trade.trend}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="reason">
+
+                <div class="reason-title">
+                    WHY THIS TRADE?
+                </div>
+
+                <div class="reason-text">
+                    ${trade.basis}
+                </div>
+
+            </div>
+
+            <div class="reason">
+
+                <div class="reason-title">
+                    TP BASIS
+                </div>
+
+                <div class="reason-text">
+                    ${trade.tpBasis}
+                </div>
+
+            </div>
+
+            <div class="reason">
+
+                <div class="reason-title">
+                    SL BASIS
+                </div>
+
+                <div class="reason-text">
+                    ${trade.slBasis}
+                </div>
+
+            </div>
+
+            <div class="reason">
+
+                <div class="reason-title">
+                    TECHNICAL DATA
+                </div>
+
+                <div class="reason-text">
+                    RSI: ${trade.rsi.toFixed(1)}
+                    • ATR: ${fmt(trade.atr)}
+                    • Score: ${trade.score}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    `;
+
+}
+
+function renderSummary(trades){
+
+    const active =
+        trades.filter(t=>t.signal !== "WAIT");
+
+    let longCount =
+        trades.filter(t=>t.signal === "LONG").length;
+
+    let shortCount =
+        trades.filter(t=>t.signal === "SHORT").length;
+
+    let waitCount =
+        trades.filter(t=>t.signal === "WAIT").length;
+
+    let overall = "NEUTRAL";
+
+    if(longCount > shortCount && longCount >= 3){
+        overall = "BULLISH";
+    }
+
+    if(shortCount > longCount && shortCount >= 3){
+        overall = "BEARISH";
+    }
+
+    const avgConfidence =
+        active.length
+            ? average(active.map(t=>t.confidence))
+            : 0;
+
+    let description =
+        "Timeframes are not sufficiently aligned for a strong directional setup.";
+
+    if(overall === "BULLISH"){
+        description =
+            "Multiple timeframes are aligned toward bullish conditions. Lower timeframes should still wait for their own entry confirmation.";
+    }
+
+    if(overall === "BEARISH"){
+        description =
+            "Multiple timeframes are aligned toward bearish conditions. Lower timeframes should still wait for their own entry confirmation.";
+    }
+
+    $("aiSummary").innerHTML = `
+
+        <h2>AI MARKET BIAS: ${overall}</h2>
+
+        <div class="summary-grid">
+
+            <div class="summary-item">
+                <div class="summary-label">
+                    LONG SIGNALS
+                </div>
+                <div class="summary-value">
+                    ${longCount}
+                </div>
+            </div>
+
+            <div class="summary-item">
+                <div class="summary-label">
+                    SHORT SIGNALS
+                </div>
+                <div class="summary-value">
+                    ${shortCount}
+                </div>
+            </div>
+
+            <div class="summary-item">
+                <div class="summary-label">
+                    WAIT
+                </div>
+                <div class="summary-value">
+                    ${waitCount}
+                </div>
+            </div>
+
+            <div class="summary-item">
+                <div class="summary-label">
+                    AVG CONFIDENCE
+                </div>
+                <div class="summary-value">
+                    ${avgConfidence
+                        ? avgConfidence.toFixed(0)+"%"
+                        : "--"}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="reason">
+            <div class="reason-title">
+                MULTI-TIMEFRAME AI INTERPRETATION
+            </div>
+
+            <div class="reason-text">
+                ${description}
+            </div>
+        </div>
+
+    `;
+
+}
+
+function drawChart(candles){
+
+    const canvas = $("chart");
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+    canvas.width =
+        rect.width*dpr;
+
+    canvas.height =
+        300*dpr;
+
+    const ctx =
+        canvas.getContext("2d");
+
+    ctx.scale(dpr,dpr);
+
+    const width = rect.width;
+    const height = 300;
+
+    ctx.clearRect(0,0,width,height);
+
+    if(!candles || candles.length < 2){
+        return;
+    }
+
+    const visible =
+        candles.slice(-80);
+
+    const highs =
+        visible.map(c=>c.high);
+
+    const lows =
+        visible.map(c=>c.low);
+
+    const max =
+        Math.max(...highs);
+
+    const min =
+        Math.min(...lows);
+
+    const range =
+        max-min || 1;
+
+    const xStep =
+        width/(visible.length-1);
+
+    ctx.lineWidth = 1;
+
+    for(let i=0;i<visible.length;i++){
+
+        const c = visible[i];
+
+        const x = i*xStep;
+
+        const yHigh =
+            height-
+            ((c.high-min)/range)*(height-20)-10;
+
+        const yLow =
+            height-
+            ((c.low-min)/range)*(height-20)-10;
+
+        const yOpen =
+            height-
+            ((c.open-min)/range)*(height-20)-10;
+
+        const yClose =
+            height-
+            ((c.close-min)/range)*(height-20)-10;
+
+        const rising =
+            c.close >= c.open;
+
+        ctx.strokeStyle =
+            rising
+                ? "#55e6a5"
+                : "#ff7089";
+
+        ctx.fillStyle =
+            rising
+                ? "#55e6a5"
+                : "#ff7089";
+
+        ctx.beginPath();
+
+        ctx.moveTo(x,yHigh);
+        ctx.lineTo(x,yLow);
+
+        ctx.stroke();
+
+        const candleWidth =
+            Math.max(
+                2,
+                xStep*0.55
+            );
+
+        const bodyTop =
+            Math.min(
+                yOpen,
+                yClose
+            );
+
+        const bodyHeight =
+            Math.max(
+                1,
+                Math.abs(
+                    yClose-yOpen
+                )
+            );
+
+        ctx.fillRect(
+            x-candleWidth/2,
+            bodyTop,
+            candleWidth,
+            bodyHeight
+        );
+
+    }
+
+}
+
+async function loadChart(){
+
+    const tf =
+        $("chartTf").value;
+
+    try{
 
         const candles =
-            await volumeResponse.json();
+            await loadTimeframe(tf);
 
+        drawChart(candles);
 
-        if (
-            !Array.isArray(candles) ||
-            candles.length === 0
-        ) {
+        $("chartTitle").textContent =
+            currentSymbol.replace("USDT"," / USDT")
+            + " — "
+            + tf.toUpperCase();
 
-            throw new Error(
-                "No Binance volume data"
-            );
+        $("chartTime").textContent =
+            new Date().toLocaleTimeString();
 
-        }
+    }catch(error){
 
-
-        /* ================================= */
-        /* 1H BTC VOLUME */
-        /* ================================= */
-
-
-        const latest =
-            candles[
-                candles.length - 1
-            ];
-
-
-        /*
-         * Binance Kline field [5]
-         * = base asset volume
-         * = BTC volume
-         */
-
-        const volume1h =
-            Number(
-                latest[5]
-            );
-
-
-        document.getElementById(
-            "volume1h"
-        ).textContent =
-
-            volume1h.toLocaleString(
-                "en-US",
-                {
-                    maximumFractionDigits: 2
-                }
-            ) + " BTC";
-
-
-        /* ================================= */
-        /* 24H BTC VOLUME */
-        /* ================================= */
-
-
-        let volume24h = 0;
-
-
-        candles.forEach(
-            function(candle) {
-
-                volume24h +=
-                    Number(
-                        candle[5]
-                    );
-
-            }
-        );
-
-
-        document.getElementById(
-            "volume24h"
-        ).textContent =
-
-            volume24h.toLocaleString(
-                "en-US",
-                {
-                    maximumFractionDigits: 2
-                }
-            ) + " BTC";
-
-
-        /* ================================= */
-        /* STATUS */
-        /* ================================= */
-
-
-        document.getElementById(
-            "status"
-        ).textContent =
-            "● BINANCE LIVE";
-
-
-        document.getElementById(
-            "status"
-        ).className =
-            "green";
-
-
-        document.getElementById(
-            "updated"
-        ).textContent =
-
-            "Updated: " +
-            new Date()
-                .toLocaleTimeString();
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Market error:",
-            error
-        );
-
-
-        document.getElementById(
-            "status"
-        ).textContent =
-            "● MARKET DATA ERROR";
-
-
-        document.getElementById(
-            "status"
-        ).className =
-            "red";
-
-
-        document.getElementById(
-            "updated"
-        ).textContent =
-            error.message;
+        console.error(error);
 
     }
 
 }
 
-
-/* ========================================= */
-/* BTC LIQUIDATION DATA */
-/* ========================================= */
-
-
-async function loadLiquidations() {
-
-    try {
-
-
-        /* ================================= */
-        /* GET 24H AGGREGATED DATA */
-        /* ================================= */
-
-
-        const response =
-            await fetch(
-                LIQUIDATION_API
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Liquidation API error " +
-                response.status
-            );
-
-        }
-
-
-        const result =
-            await response.json();
-
-
-        console.log(
-            "MarginPad liquidation data:",
-            result
-        );
-
-
-        if (
-            !result ||
-            result.ok !== true ||
-            !result.data
-        ) {
-
-            throw new Error(
-                "Invalid liquidation response"
-            );
-
-        }
-
-
-        const data =
-            result.data;
-
-
-        /*
-         * Market-wide data.
-         */
-
-        let longLiquidation =
-            Number(
-                data.market &&
-                data.market.long
-            );
-
-
-        let shortLiquidation =
-            Number(
-                data.market &&
-                data.market.short
-            );
-
-
-        let totalLiquidation =
-            Number(
-                data.market &&
-                data.market.total
-            );
-
-
-        let eventCount =
-            Number(
-                data.market &&
-                data.market.count
-            );
-
-
-        /* ================================= */
-        /* FIND BTC IN COIN BREAKDOWN */
-        /* ================================= */
-
-
-        let btc = null;
-
-
-        /*
-         * Search common coin arrays.
-         */
-
-        const possibleLists = [
-
-            data.coins,
-
-            data.rows,
-
-            data.topCoins,
-
-            data.perCoin,
-
-            data.coinBreakdown
-
-        ];
-
-
-        for (
-            let i = 0;
-            i < possibleLists.length;
-            i++
-        ) {
-
-            const list =
-                possibleLists[i];
-
-
-            if (
-                !Array.isArray(list)
-            ) {
-
-                continue;
-
-            }
-
-
-            const found =
-                list.find(
-                    function(item) {
-
-                        return String(
-                            item.symbol ||
-                            item.coin ||
-                            item.asset ||
-                            ""
-                        ).toUpperCase()
-                        === "BTC";
-
-                    }
-                );
-
-
-            if (found) {
-
-                btc = found;
-
-                break;
-
-            }
-
-        }
-
-
-        /*
-         * If BTC-specific data exists,
-         * prefer it.
-         */
-
-        if (btc) {
-
-
-            const btcLong =
-                Number(
-                    btc.long ??
-                    btc.longLiquidation ??
-                    btc.long_liquidation
-                );
-
-
-            const btcShort =
-                Number(
-                    btc.short ??
-                    btc.shortLiquidation ??
-                    btc.short_liquidation
-                );
-
-
-            const btcTotal =
-                Number(
-                    btc.total ??
-                    btc.totalLiquidation ??
-                    btc.total_liquidation
-                );
-
-
-            const btcCount =
-                Number(
-                    btc.count ??
-                    btc.events ??
-                    btc.eventCount
-                );
-
-
-            if (
-                Number.isFinite(btcLong)
-            ) {
-
-                longLiquidation =
-                    btcLong;
-
-            }
-
-
-            if (
-                Number.isFinite(btcShort)
-            ) {
-
-                shortLiquidation =
-                    btcShort;
-
-            }
-
-
-            if (
-                Number.isFinite(btcTotal)
-            ) {
-
-                totalLiquidation =
-                    btcTotal;
-
-            }
-
-
-            if (
-                Number.isFinite(btcCount)
-            ) {
-
-                eventCount =
-                    btcCount;
-
-            }
-
-        }
-
-
-        /*
-         * Calculate total if necessary.
-         */
-
-        if (
-            !Number.isFinite(totalLiquidation) ||
-            totalLiquidation === 0
-        ) {
-
-            totalLiquidation =
-                (
-                    Number.isFinite(
-                        longLiquidation
-                    )
-                        ? longLiquidation
-                        : 0
+async function runAI(){
+
+    $("timeframes").innerHTML =
+        `<div class="loading">
+            AI engine analyzing 9 timeframes...
+        </div>`;
+
+    try{
+
+        const results =
+            await Promise.all(
+                TIMEFRAMES.map(
+                    tf => loadTimeframe(tf)
                 )
-                +
-                (
-                    Number.isFinite(
-                        shortLiquidation
+            );
+
+        const trades =
+            TIMEFRAMES.map(
+                (tf,i) =>
+                    buildTrade(
+                        tf,
+                        results[i]
                     )
-                        ? shortLiquidation
-                        : 0
-                );
-
-        }
-
-
-        /* ================================= */
-        /* DISPLAY 24H LIQUIDATIONS */
-        /* ================================= */
-
-
-        document.getElementById(
-            "longLiquidation"
-        ).textContent =
-
-            formatUSD(
-                longLiquidation
             );
 
+        renderSummary(trades);
 
-        document.getElementById(
-            "shortLiquidation"
-        ).textContent =
+        $("timeframes").innerHTML =
+            trades.map(
+                trade => renderTrade(trade)
+            ).join("");
 
-            formatUSD(
-                shortLiquidation
-            );
-
-
-        document.getElementById(
-            "totalLiquidation"
-        ).textContent =
-
-            formatUSD(
-                totalLiquidation
-            );
-
-
-        document.getElementById(
-            "liquidationEvents"
-        ).textContent =
-
-            formatNumber(
-                eventCount
-            );
-
-
-        /* ================================= */
-        /* GET RECENT BTC EVENTS */
-        /* ================================= */
-
-
-        try {
-
-
-            const liveResponse =
-                await fetch(
-                    BTC_LIVE_LIQUIDATION_API
-                );
-
-
-            if (
-                liveResponse.ok
-            ) {
-
-
-                const liveResult =
-                    await liveResponse.json();
-
-
-                console.log(
-                    "BTC live liquidations:",
-                    liveResult
-                );
-
-
-                /*
-                 * API normally returns:
-                 *
-                 * {
-                 *   ok: true,
-                 *   data: {
-                 *      events: [...]
-                 *   }
-                 * }
-                 */
-
-
-                let events = [];
-
-
-                if (
-                    liveResult &&
-                    liveResult.data &&
-                    Array.isArray(
-                        liveResult.data.events
-                    )
-                ) {
-
-                    events =
-                        liveResult.data.events;
-
-                }
-                else if (
-                    liveResult &&
-                    Array.isArray(
-                        liveResult.events
-                    )
-                ) {
-
-                    events =
-                        liveResult.events;
-
-                }
-
-
-                /* ================================= */
-                /* FIND LARGEST RECENT EVENT */
-                /* ================================= */
-
-
-                let largest = 0;
-
-
-                events.forEach(
-                    function(event) {
-
-                        const notional =
-                            Number(
-                                event.notional ||
-                                event.usd ||
-                                event.value ||
-                                0
-                            );
-
-
-                        if (
-                            notional >
-                            largest
-                        ) {
-
-                            largest =
-                                notional;
-
-                        }
-
-                    }
-                );
-
-
-                if (
-                    largest > 0
-                ) {
-
-                    document.getElementById(
-                        "largestLiquidation"
-                    ).textContent =
-
-                        formatUSD(
-                            largest
-                        );
-
-                }
-
-            }
-
-        }
-        catch (
-            liveError
-        ) {
-
-            console.log(
-                "Live liquidation feed unavailable:",
-                liveError
-            );
-
-        }
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "BTC liquidation error:",
-            error
+        setStatus(
+            "● AI ANALYSIS LIVE"
         );
 
+    }catch(error){
 
-        document.getElementById(
-            "longLiquidation"
-        ).textContent =
-            "DATA ERROR";
+        console.error(error);
 
+        $("timeframes").innerHTML =
+            `<div class="loading">
+                AI DATA ERROR: ${error.message}
+            </div>`;
 
-        document.getElementById(
-            "shortLiquidation"
-        ).textContent =
-            "DATA ERROR";
-
-
-        document.getElementById(
-            "totalLiquidation"
-        ).textContent =
-            "DATA ERROR";
-
-
-        document.getElementById(
-            "liquidationEvents"
-        ).textContent =
-            "DATA ERROR";
-
-
-        document.getElementById(
-            "largestLiquidation"
-        ).textContent =
-            "DATA ERROR";
+        setStatus(
+            "● AI DATA ERROR"
+        );
 
     }
 
 }
 
+async function refresh(){
 
-/* ========================================= */
-/* APP START */
-/* ========================================= */
+    await loadMarket();
 
+    await loadChart();
 
-/*
- * Keep the same simple startup style
- * as the working Binance version.
- */
+    await runAI();
 
-loadMarket();
+}
 
-loadLiquidations();
+$("coinSelect").addEventListener(
+    "change",
+    async function(){
 
+        currentSymbol =
+            this.value;
 
-/* ========================================= */
-/* AUTO REFRESH */
-/* ========================================= */
+        await refresh();
 
-
-setInterval(
-    function() {
-
-        loadMarket();
-
-        loadLiquidations();
-
-    },
-    15000
+    }
 );
 
+$("chartTf").addEventListener(
+    "change",
+    async function(){
+
+        await loadChart();
+
+    }
+);
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        const tf =
+            $("chartTf").value;
+
+        if(timeframeData[tf]){
+            drawChart(
+                timeframeData[tf]
+            );
+        }
+
+    }
+);
+
+/* APP START */
+
+loadMarket();
+loadChart();
+runAI();
+
+setInterval(
+    refresh,
+    60000
+);
 
 </script>
 
-
 </body>
-
 </html>
