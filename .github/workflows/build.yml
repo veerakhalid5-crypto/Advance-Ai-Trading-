@@ -21,7 +21,24 @@ jobs:
 
       - name: Build web app
         run: npm run build
+        - name: Check JavaScript Syntax
+          run: |
+            python3 - <<'PY'
+            import re
+            import subprocess
 
+            html = open("www/index.html", encoding="utf-8").read()
+            scripts = re.findall(r"<script[^>]*>(.*?)</script>", html, re.S)
+
+            for i, script in enumerate(scripts, 1):
+                open(f"/tmp/script_{i}.js", "w", encoding="utf-8").write(script)
+                result = subprocess.run(
+                    ["node", "--check", f"/tmp/script_{i}.js"],
+                    text=True
+                )
+                if result.returncode != 0:
+                    raise SystemExit(f"JavaScript syntax error in script {i}")
+            PY
       - name: Verify App Source
         run: |
           echo "=== connectionStatus ==="
