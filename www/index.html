@@ -1739,7 +1739,117 @@ function detectOrderBlock(){
 
 }
 
+/* =========================================================
+   BINANCE LIVE DATA
+========================================================= */
 
+async function loadBinanceData(){
+
+    try{
+
+        const status = $("connectionStatus");
+
+        if(status){
+            status.textContent = "● LOADING";
+            status.style.color = "#ffc857";
+        }
+
+        const symbolElement =
+            $("symbol");
+
+        const intervalElement =
+            $("interval");
+
+        const symbol =
+            symbolElement?.value || "BTCUSDT";
+
+        const interval =
+            intervalElement?.value || "1h";
+
+        const url =
+            "https://api.binance.com/api/v3/klines" +
+            "?symbol=" + symbol +
+            "&interval=" + interval +
+            "&limit=500";
+
+        const response =
+            await fetch(url);
+
+        if(!response.ok)
+            throw new Error(
+                "Binance API request failed"
+            );
+
+        const raw =
+            await response.json();
+
+        candles =
+            raw.map(k => ({
+
+                time: Number(k[0]),
+                open: Number(k[1]),
+                high: Number(k[2]),
+                low: Number(k[3]),
+                close: Number(k[4]),
+                volume: Number(k[5])
+
+            }));
+
+        if(status){
+
+            status.textContent =
+                "● LIVE DATA";
+
+            status.style.color =
+                "#38e89a";
+
+        }
+
+        if(typeof generateSignal === "function")
+            generateSignal();
+
+    }
+    catch(error){
+
+        console.error(
+            "Binance connection error:",
+            error
+        );
+
+        const status =
+            $("connectionStatus");
+
+        if(status){
+
+            status.textContent =
+                "● DATA ERROR";
+
+            status.style.color =
+                "#ff5964";
+
+        }
+
+    }
+
+}
+
+
+/* INITIAL LOAD */
+
+setTimeout(() => {
+
+    loadBinanceData();
+
+}, 500);
+
+
+/* LIVE REFRESH */
+
+setInterval(() => {
+
+    loadBinanceData();
+
+}, 30000);
 /* SIGNAL */
 
 function generateSignal(){
