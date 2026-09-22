@@ -1198,3 +1198,21 @@ function updateSignalUI(signal) {
                     ? "long"
                     : signal.signal === "SHORT"
             
+document.addEventListener("DOMContentLoaded", () => {
+
+    setStatus(
+        "● CONNECTING",
+        "#ffc857"
+    );
+
+    loadMarketData();
+
+    if (state.live) {
+
+        state.timer = setInterval(() => {
+            loadMarketData();
+        }, 30000);
+
+    }
+
+});
