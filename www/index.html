@@ -13,8 +13,34 @@
 <div id="status">APP STARTING...</div>
 
 <script>
-document.getElementById("status").textContent =
-    "JAVASCRIPT WORKING ✓";
+async function testConnection() {
+
+    const status = document.getElementById("status");
+
+    status.textContent = "CONNECTING...";
+
+    try {
+
+        const response = await fetch(
+            "https://api.binance.com/api/v3/ping"
+        );
+
+        if (!response.ok) {
+            throw new Error("HTTP " + response.status);
+        }
+
+        status.textContent =
+            "BINANCE CONNECTION WORKING ✓";
+
+    } catch (error) {
+
+        status.textContent =
+            "BINANCE ERROR: " + error.message;
+
+    }
+}
+
+testConnection();
 </script>
 
 </body>
