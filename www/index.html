@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b1020">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0">
+
+<meta name="theme-color" content="#070b14">
 
 <title>Advanced Crypto AI</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -15,33 +19,32 @@
 }
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
     background:#070b14;
     color:#eef2ff;
-    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 .header{
-    padding:16px;
     background:#0d1324;
-    border-bottom:1px solid #202943;
+    border-bottom:1px solid #202b44;
+    padding:16px;
 }
 
 .title{
     font-size:23px;
-    font-weight:800;
+    font-weight:900;
 }
 
 .subtitle{
-    margin-top:4px;
-    color:#8d9ab8;
+    margin-top:5px;
+    color:#8490aa;
     font-size:12px;
 }
 
 .status{
-    margin-top:10px;
-    font-size:12px;
+    margin-top:9px;
     color:#55e6a5;
+    font-size:12px;
 }
 
 .controls{
@@ -49,15 +52,16 @@ body{
     gap:8px;
     padding:12px;
     overflow-x:auto;
-    background:#0a0f1c;
+    background:#090e1a;
 }
 
 select{
-    background:#11192b;
-    color:#fff;
-    border:1px solid #293653;
-    border-radius:8px;
+    min-width:125px;
     padding:10px 12px;
+    background:#11192b;
+    border:1px solid #293754;
+    border-radius:9px;
+    color:#fff;
     font-weight:700;
 }
 
@@ -65,22 +69,22 @@ select{
     padding:14px;
 }
 
-.price-card{
+.card{
     background:#101729;
-    border:1px solid #222e49;
+    border:1px solid #222f4b;
     border-radius:14px;
-    padding:16px;
+    padding:15px;
 }
 
 .symbol{
-    color:#8f9bb8;
-    font-size:13px;
+    color:#8995b1;
+    font-size:12px;
 }
 
 .price{
-    margin-top:5px;
+    margin-top:4px;
     font-size:30px;
-    font-weight:800;
+    font-weight:900;
 }
 
 .stats{
@@ -91,24 +95,23 @@ select{
 }
 
 .stat{
-    background:#0b1120;
-    border:1px solid #1c2740;
-    border-radius:10px;
+    background:#0a1020;
+    border-radius:9px;
     padding:10px;
 }
 
-.stat-label{
-    color:#7f8ba8;
-    font-size:11px;
+.label{
+    color:#74819d;
+    font-size:10px;
 }
 
-.stat-value{
+.value{
     margin-top:5px;
-    font-size:14px;
-    font-weight:700;
+    font-size:13px;
+    font-weight:800;
 }
 
-.chart-wrap{
+.chart{
     margin:0 14px 14px;
     background:#0d1424;
     border:1px solid #202c47;
@@ -117,69 +120,62 @@ select{
 }
 
 .chart-head{
-    padding:12px 14px;
+    padding:12px;
     display:flex;
     justify-content:space-between;
-    align-items:center;
     border-bottom:1px solid #202c47;
 }
 
-.chart-title{
-    font-size:14px;
-    font-weight:800;
-}
-
-.chart-time{
-    color:#8794b1;
-    font-size:12px;
-}
-
 canvas{
-    display:block;
     width:100%;
     height:300px;
+    display:block;
 }
 
-.section-title{
-    padding:8px 14px 10px;
+.section{
+    padding:9px 14px;
     font-size:18px;
-    font-weight:800;
+    font-weight:900;
 }
 
-.ai-summary{
-    margin:0 14px 16px;
-    padding:16px;
-    border-radius:14px;
+.summary{
+    margin:0 14px 15px;
+    padding:15px;
     background:#111a2d;
     border:1px solid #293754;
-}
-
-.ai-summary h2{
-    font-size:16px;
-    margin-bottom:10px;
+    border-radius:14px;
 }
 
 .summary-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:8px;
+    margin-top:10px;
 }
 
-.summary-item{
+.box{
+    background:#0a1020;
+    padding:10px;
+    border-radius:9px;
+}
+
+.reason{
+    margin-top:10px;
+    padding:12px;
     background:#0a1020;
     border-radius:9px;
-    padding:10px;
 }
 
-.summary-label{
-    color:#8290ad;
+.reason-title{
     font-size:10px;
+    font-weight:900;
+    margin-bottom:5px;
 }
 
-.summary-value{
-    margin-top:4px;
-    font-size:13px;
-    font-weight:700;
+.reason-text{
+    color:#aeb8cc;
+    font-size:12px;
+    line-height:1.55;
 }
 
 .timeframes{
@@ -189,24 +185,22 @@ canvas{
     padding:0 14px 30px;
 }
 
-.tf-card{
+.tf{
     background:#0f1729;
-    border:1px solid #26334f;
+    border:1px solid #263450;
     border-radius:14px;
     overflow:hidden;
 }
 
 .tf-head{
-    padding:13px 14px;
+    padding:13px;
     display:flex;
     justify-content:space-between;
-    align-items:center;
     background:#121c31;
 }
 
 .tf-name{
-    font-size:15px;
-    font-weight:800;
+    font-weight:900;
 }
 
 .signal{
@@ -227,7 +221,7 @@ canvas{
 }
 
 .wait{
-    background:#302b16;
+    background:#352e16;
     color:#f3d76b;
 }
 
@@ -235,83 +229,88 @@ canvas{
     padding:14px;
 }
 
-.trade-price{
-    font-size:23px;
+.big{
+    font-size:22px;
     font-weight:900;
     margin-bottom:10px;
 }
 
-.trade-grid{
+.grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:8px;
 }
 
-.trade-box{
+.metric{
     background:#0a1020;
     padding:10px;
     border-radius:9px;
 }
 
-.trade-label{
-    color:#7886a5;
-    font-size:10px;
+.metric-title{
+    color:#73809c;
+    font-size:9px;
 }
 
-.trade-value{
+.metric-value{
     margin-top:4px;
-    font-size:13px;
-    font-weight:800;
-}
-
-.reason{
-    margin-top:12px;
-    padding:12px;
-    background:#0a1020;
-    border-radius:9px;
-    border-left:3px solid #64748b;
-}
-
-.reason-title{
-    font-size:11px;
-    font-weight:800;
-    margin-bottom:5px;
-}
-
-.reason-text{
-    color:#aeb8ce;
     font-size:12px;
-    line-height:1.55;
+    font-weight:800;
 }
 
-.loading{
-    color:#8794b1;
-    padding:20px;
-    text-align:center;
+.good{
+    color:#55e6a5;
+}
+
+.bad{
+    color:#ff7188;
+}
+
+.neutral{
+    color:#f1d66d;
 }
 
 .footer{
-    padding:20px 14px 35px;
-    text-align:center;
+    padding:20px 14px 40px;
     color:#66738f;
     font-size:10px;
     line-height:1.5;
+    text-align:center;
 }
+
+.loading{
+    padding:20px;
+    text-align:center;
+    color:#8390aa;
+}
+
 </style>
+
 </head>
 
 <body>
 
 <header class="header">
-    <div class="title">Advanced Crypto AI</div>
-    <div class="subtitle">
-        Binance Market Data • Multi-Timeframe AI Analysis
+
+    <div class="title">
+        Advanced Crypto AI
     </div>
-    <div class="status" id="status">● INITIALIZING</div>
+
+    <div class="subtitle">
+        Binance Market Data • Volume Intelligence • Multi-Timeframe Analysis
+    </div>
+
+    <div class="status" id="status">
+        ● INITIALIZING
+    </div>
+
 </header>
 
+
 <div class="controls">
-    <select id="coinSelect">
+
+    <select id="coin">
+
         <option value="BTCUSDT">BTC / USDT</option>
         <option value="ETHUSDT">ETH / USDT</option>
         <option value="XRPUSDT">XRP / USDT</option>
@@ -321,9 +320,12 @@ canvas{
         <option value="PEPEUSDT">PEPE / USDT</option>
         <option value="BONKUSDT">BONK / USDT</option>
         <option value="NEARUSDT">NEAR / USDT</option>
+        <option value="XAUUSDT">XAU / USDT</option>
+
     </select>
 
     <select id="chartTf">
+
         <option value="5m">5M</option>
         <option value="15m">15M</option>
         <option value="30m">30M</option>
@@ -333,87 +335,128 @@ canvas{
         <option value="1d">1D</option>
         <option value="3d">3D</option>
         <option value="1w">1W</option>
+
     </select>
+
 </div>
 
-<section class="market">
 
-    <div class="price-card">
+<div class="market">
 
-        <div class="symbol" id="symbolName">BTC / USDT</div>
+    <div class="card">
 
-        <div class="price" id="price">--</div>
+        <div class="symbol" id="symbol">
+            BTC / USDT
+        </div>
+
+        <div class="price" id="price">
+            --
+        </div>
 
         <div class="stats">
 
             <div class="stat">
-                <div class="stat-label">24H CHANGE</div>
-                <div class="stat-value" id="change">--</div>
+                <div class="label">24H CHANGE</div>
+                <div class="value" id="change">--</div>
             </div>
 
             <div class="stat">
-                <div class="stat-label">24H HIGH</div>
-                <div class="stat-value" id="high">--</div>
+                <div class="label">24H HIGH</div>
+                <div class="value" id="high">--</div>
             </div>
 
             <div class="stat">
-                <div class="stat-label">24H LOW</div>
-                <div class="stat-value" id="low">--</div>
+                <div class="label">24H LOW</div>
+                <div class="value" id="low">--</div>
             </div>
 
             <div class="stat">
-                <div class="stat-label">24H BTC/VOLUME</div>
-                <div class="stat-value" id="volume">--</div>
+                <div class="label">24H VOLUME</div>
+                <div class="value" id="volume">--</div>
             </div>
 
         </div>
 
     </div>
 
-</section>
+</div>
 
-<div class="chart-wrap">
+
+<div class="chart">
 
     <div class="chart-head">
-        <div class="chart-title" id="chartTitle">BTC / USDT — 1H</div>
-        <div class="chart-time" id="chartTime">Loading...</div>
+
+        <b id="chartTitle">
+            BTC / USDT — 1H
+        </b>
+
+        <span id="chartTime">
+            --
+        </span>
+
     </div>
 
-    <canvas id="chart"></canvas>
+    <canvas id="canvas"></canvas>
 
 </div>
 
-<div class="section-title">
+
+<div class="section">
     AI MARKET OVERVIEW
 </div>
 
-<div class="ai-summary" id="aiSummary">
+
+<div class="summary" id="summary">
+
     <div class="loading">
-        AI is analyzing market structure...
+        AI is analyzing historical price and volume behavior...
     </div>
+
 </div>
 
-<div class="section-title">
-    AI MULTI-TIMEFRAME TRADES
+
+<div class="section">
+    MULTI-TIMEFRAME TRADE SETUPS
 </div>
+
 
 <div class="timeframes" id="timeframes">
+
     <div class="loading">
-        Loading multi-timeframe analysis...
+        Loading AI analysis...
     </div>
+
 </div>
 
+
 <div class="footer">
-    Advanced Crypto AI uses Binance market data and an internal
-    rule-based quantitative analysis engine. Signals are informational
-    and are not guaranteed trading results.
+
+    Advanced Crypto AI analyzes Binance market data using
+    price structure, historical volume, taker-buy volume,
+    momentum, volatility, trend, breakout behavior and
+    price/volume divergence.
+
+    <br><br>
+
+    Signals are analytical estimates, not guaranteed outcomes.
+
 </div>
+
 
 <script>
 
-const API = "https://api.binance.com/api/v3";
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+const SPOT =
+    "https://api.binance.com/api/v3";
+
+const FUTURES =
+    "https://fapi.binance.com/fapi/v1";
 
 const TIMEFRAMES = [
+
     "5m",
     "15m",
     "30m",
@@ -423,703 +466,1539 @@ const TIMEFRAMES = [
     "1d",
     "3d",
     "1w"
+
 ];
 
-let currentSymbol = "BTCUSDT";
-let marketData = {};
-let timeframeData = {};
+let symbol = "BTCUSDT";
 
-const $ = id => document.getElementById(id);
+let data = {};
 
-function setStatus(text){
-    $("status").textContent = text;
+let market = {};
+
+let xauMode = false;
+
+
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+function $(id){
+
+    return document.getElementById(id);
+
 }
 
-function fmt(value, digits = 2){
 
-    if(value === null || value === undefined || !isFinite(value)){
+function fmt(n,d=2){
+
+    if(!isFinite(n))
         return "--";
-    }
 
-    if(Math.abs(value) >= 1000){
-        return value.toLocaleString(
-            undefined,
-            {
-                maximumFractionDigits:digits
-            }
-        );
-    }
+    if(Math.abs(n) < 0.01)
+        return n.toFixed(8);
 
-    if(Math.abs(value) < 0.01){
-        return value.toFixed(8);
-    }
+    return n.toLocaleString(
+        undefined,
+        {
+            maximumFractionDigits:d
+        }
+    );
 
-    return value.toFixed(digits);
 }
 
-function clamp(value,min,max){
-    return Math.max(min,Math.min(max,value));
+
+function avg(a){
+
+    if(!a.length)
+        return 0;
+
+    return a.reduce(
+        (x,y)=>x+y,
+        0
+    )/a.length;
+
 }
 
-function average(arr){
 
-    if(!arr.length) return 0;
+function sma(a,p){
 
-    return arr.reduce((a,b)=>a+b,0)/arr.length;
+    if(a.length < p)
+        return avg(a);
+
+    return avg(
+        a.slice(-p)
+    );
+
 }
 
-function ema(values, period){
 
-    if(values.length < period){
-        return average(values);
-    }
+function ema(a,p){
 
-    const k = 2/(period+1);
+    if(a.length < p)
+        return avg(a);
 
-    let e = average(values.slice(0,period));
+    const k =
+        2/(p+1);
 
-    for(let i=period;i<values.length;i++){
-        e = values[i]*k + e*(1-k);
+    let e =
+        avg(a.slice(0,p));
+
+    for(
+        let i=p;
+        i<a.length;
+        i++
+    ){
+
+        e =
+            a[i]*k+
+            e*(1-k);
+
     }
 
     return e;
+
 }
 
-function sma(values,period){
 
-    if(values.length < period){
-        return average(values);
-    }
+function rsi(a,p=14){
 
-    return average(values.slice(-period));
-}
-
-function rsi(values,period=14){
-
-    if(values.length < period+1){
+    if(a.length < p+1)
         return 50;
+
+    let gain=0;
+    let loss=0;
+
+    for(
+        let i=a.length-p;
+        i<a.length;
+        i++
+    ){
+
+        const d =
+            a[i]-a[i-1];
+
+        if(d>0)
+            gain+=d;
+        else
+            loss+=Math.abs(d);
+
     }
 
-    let gain = 0;
-    let loss = 0;
+    if(loss===0)
+        return 100;
 
-    for(let i=values.length-period;i<values.length;i++){
-
-        const diff = values[i]-values[i-1];
-
-        if(diff > 0){
-            gain += diff;
-        }else{
-            loss += Math.abs(diff);
-        }
-    }
-
-    if(loss === 0) return 100;
-
-    const rs = gain/loss;
+    const rs =
+        gain/loss;
 
     return 100-(100/(1+rs));
+
 }
 
-function atr(candles,period=14){
 
-    if(candles.length < period+1){
+function atr(c,p=14){
+
+    if(c.length < p+1)
         return 0;
-    }
 
-    const tr = [];
+    let tr=[];
 
-    for(let i=1;i<candles.length;i++){
-
-        const high = candles[i].high;
-        const low = candles[i].low;
-        const prev = candles[i-1].close;
+    for(
+        let i=1;
+        i<c.length;
+        i++
+    ){
 
         tr.push(
+
             Math.max(
-                high-low,
-                Math.abs(high-prev),
-                Math.abs(low-prev)
+
+                c[i].high-c[i].low,
+
+                Math.abs(
+                    c[i].high-c[i-1].close
+                ),
+
+                Math.abs(
+                    c[i].low-c[i-1].close
+                )
+
             )
+
         );
+
     }
 
-    return sma(tr,period);
+    return sma(tr,p);
+
 }
 
-function macd(values){
 
-    const fast = ema(values,12);
-    const slow = ema(values,26);
+function macd(a){
 
-    const line = fast-slow;
+    const fast =
+        ema(a,12);
 
-    const macdValues = [];
+    const slow =
+        ema(a,26);
 
-    for(let i=26;i<values.length;i++){
+    const line =
+        fast-slow;
 
-        const f = ema(values.slice(0,i+1),12);
-        const s = ema(values.slice(0,i+1),26);
+    let history=[];
 
-        macdValues.push(f-s);
+    for(
+        let i=26;
+        i<a.length;
+        i++
+    ){
+
+        history.push(
+
+            ema(
+                a.slice(0,i+1),
+                12
+            )
+            -
+            ema(
+                a.slice(0,i+1),
+                26
+            )
+
+        );
+
     }
 
-    const signal = ema(macdValues,9);
+    const signal =
+        ema(history,9);
 
     return {
+
         line,
         signal,
-        histogram:line-signal
+        histogram:
+            line-signal
+
     };
+
 }
 
-function parseCandles(rows){
+
+function clamp(n,min,max){
+
+    return Math.max(
+        min,
+        Math.min(max,n)
+    );
+
+}
+
+
+/* =========================================================
+   BINANCE REQUEST
+========================================================= */
+
+async function getJSON(url){
+
+    const r =
+        await fetch(url);
+
+    if(!r.ok)
+        throw new Error(
+            "HTTP "+r.status
+        );
+
+    return r.json();
+
+}
+
+
+function endpoint(){
+
+    return xauMode
+        ? FUTURES
+        : SPOT;
+
+}
+
+
+/* =========================================================
+   CANDLE PARSER
+========================================================= */
+
+function parse(rows){
 
     return rows.map(r => ({
+
         time:Number(r[0]),
+
         open:Number(r[1]),
+
         high:Number(r[2]),
+
         low:Number(r[3]),
+
         close:Number(r[4]),
-        volume:Number(r[5])
+
+        volume:Number(r[5]),
+
+        quoteVolume:Number(r[7]),
+
+        trades:Number(r[8]),
+
+        takerBuy:Number(r[9]),
+
+        takerBuyQuote:Number(r[10])
+
     }));
 
 }
 
-async function fetchJSON(url){
 
-    const response = await fetch(url);
+/* =========================================================
+   LOAD CANDLES
+========================================================= */
 
-    if(!response.ok){
-        throw new Error(
-            "HTTP " + response.status
-        );
-    }
+async function loadCandles(tf){
 
-    return response.json();
-}
+    const rows =
+        await getJSON(
 
-async function loadMarket(){
+            `${endpoint()}/klines`+
+            `?symbol=${symbol}`+
+            `&interval=${tf}`+
+            `&limit=180`
 
-    try{
-
-        const ticker = await fetchJSON(
-            `${API}/ticker/24hr?symbol=${currentSymbol}`
         );
 
-        marketData = ticker;
-
-        $("symbolName").textContent =
-            currentSymbol.replace("USDT"," / USDT");
-
-        $("price").textContent =
-            "$" + fmt(Number(ticker.lastPrice),2);
-
-        $("change").textContent =
-            Number(ticker.priceChangePercent).toFixed(2) + "%";
-
-        $("high").textContent =
-            "$" + fmt(Number(ticker.highPrice),2);
-
-        $("low").textContent =
-            "$" + fmt(Number(ticker.lowPrice),2);
-
-        $("volume").textContent =
-            fmt(Number(ticker.volume),2);
-
-    }catch(error){
-
-        setStatus("● MARKET DATA ERROR");
-
-        console.error(error);
-
-    }
+    return parse(rows);
 
 }
 
-async function loadTimeframe(tf){
 
-    const rows = await fetchJSON(
-        `${API}/klines?symbol=${currentSymbol}&interval=${tf}&limit=150`
-    );
+/* =========================================================
+   VOLUME INTELLIGENCE
+========================================================= */
 
-    timeframeData[tf] = parseCandles(rows);
+function volumeAnalysis(c){
 
-    return timeframeData[tf];
-}
+    const last =
+        c[c.length-1];
 
-function calculateIndicators(candles){
+    const previous =
+        c.slice(0,-1);
 
-    const closes = candles.map(c=>c.close);
-    const volumes = candles.map(c=>c.volume);
-
-    const price = closes[closes.length-1];
-
-    const ema9 = ema(closes,9);
-    const ema21 = ema(closes,21);
-    const ema50 = ema(closes,50);
-    const ema100 = ema(closes,100);
-
-    const r = rsi(closes,14);
-    const a = atr(candles,14);
-    const m = macd(closes);
-
-    const volAvg = sma(volumes,20);
-    const currentVol = volumes[volumes.length-1];
-
-    const recent = candles.slice(-30);
-
-    const resistance = Math.max(
-        ...recent.slice(0,-1).map(c=>c.high)
-    );
-
-    const support = Math.min(
-        ...recent.slice(0,-1).map(c=>c.low)
-    );
-
-    const previousHigh = Math.max(
-        ...candles.slice(-11,-1).map(c=>c.high)
-    );
-
-    const previousLow = Math.min(
-        ...candles.slice(-11,-1).map(c=>c.low)
-    );
-
-    const bullishStructure =
-        ema9 > ema21 &&
-        ema21 > ema50;
-
-    const bearishStructure =
-        ema9 < ema21 &&
-        ema21 < ema50;
-
-    const breakout =
-        price > previousHigh &&
-        currentVol > volAvg*1.15;
-
-    const breakdown =
-        price < previousLow &&
-        currentVol > volAvg*1.15;
-
-    let trend = "NEUTRAL";
-
-    if(bullishStructure) trend = "BULLISH";
-    if(bearishStructure) trend = "BEARISH";
-
-    return {
-        price,
-        ema9,
-        ema21,
-        ema50,
-        ema100,
-        rsi:r,
-        atr:a,
-        macd:m,
-        volAvg,
-        currentVol,
-        resistance,
-        support,
-        previousHigh,
-        previousLow,
-        breakout,
-        breakdown,
-        trend
-    };
-
-}
-
-function scoreMarket(indicators){
-
-    let score = 0;
-    const reasons = [];
-
-    if(indicators.price > indicators.ema9){
-        score += 1;
-        reasons.push("price above EMA9");
-    }else{
-        score -= 1;
-        reasons.push("price below EMA9");
-    }
-
-    if(indicators.ema9 > indicators.ema21){
-        score += 1;
-        reasons.push("EMA9 above EMA21");
-    }else{
-        score -= 1;
-        reasons.push("EMA9 below EMA21");
-    }
-
-    if(indicators.ema21 > indicators.ema50){
-        score += 1;
-        reasons.push("EMA21 above EMA50");
-    }else{
-        score -= 1;
-        reasons.push("EMA21 below EMA50");
-    }
-
-    if(indicators.price > indicators.ema100){
-        score += 1;
-        reasons.push("price above EMA100");
-    }else{
-        score -= 1;
-        reasons.push("price below EMA100");
-    }
-
-    if(indicators.rsi >= 52 && indicators.rsi <= 70){
-        score += 1;
-        reasons.push("bullish RSI momentum");
-    }
-
-    if(indicators.rsi <= 48 && indicators.rsi >= 30){
-        score -= 1;
-        reasons.push("bearish RSI momentum");
-    }
-
-    if(indicators.macd.histogram > 0){
-        score += 1;
-        reasons.push("positive MACD momentum");
-    }else{
-        score -= 1;
-        reasons.push("negative MACD momentum");
-    }
-
-    if(indicators.currentVol > indicators.volAvg*1.15){
-        if(indicators.price > indicators.ema21){
-            score += 1;
-            reasons.push("volume expansion supports upside");
-        }else{
-            score -= 1;
-            reasons.push("volume expansion supports downside");
-        }
-    }
-
-    if(indicators.breakout){
-        score += 3;
-        reasons.push("confirmed resistance breakout with volume");
-    }
-
-    if(indicators.breakdown){
-        score -= 3;
-        reasons.push("confirmed support breakdown with volume");
-    }
-
-    return {
-        score,
-        reasons
-    };
-
-}
-
-function buildTrade(tf, candles){
-
-    const ind = calculateIndicators(candles);
-
-    const scored = scoreMarket(ind);
-
-    const score = scored.score;
-
-    let signal = "WAIT";
-
-    if(score >= 5){
-        signal = "LONG";
-    }
-
-    if(score <= -5){
-        signal = "SHORT";
-    }
-
-    const price = ind.price;
-
-    let entryLow = price;
-    let entryHigh = price;
-
-    let sl;
-    let tp1;
-    let tp2;
-    let tp3;
-
-    const a = ind.atr || price*0.01;
-
-    if(signal === "LONG"){
-
-        entryLow =
-            Math.max(
-                ind.ema21,
-                ind.support
-            );
-
-        entryHigh =
-            price + a*0.20;
-
-        sl =
-            Math.min(
-                ind.support-a*0.35,
-                price-a*1.25
-            );
-
-        const risk =
-            Math.max(
-                price-sl,
-                a
-            );
-
-        tp1 = price + risk*1.2;
-        tp2 = price + risk*2.0;
-        tp3 = price + risk*3.0;
-
-    }else if(signal === "SHORT"){
-
-        entryLow =
-            price-a*0.20;
-
-        entryHigh =
-            Math.min(
-                ind.ema21,
-                ind.resistance
-            );
-
-        sl =
-            Math.max(
-                ind.resistance+a*0.35,
-                price+a*1.25
-            );
-
-        const risk =
-            Math.max(
-                sl-price,
-                a
-            );
-
-        tp1 = price-risk*1.2;
-        tp2 = price-risk*2.0;
-        tp3 = price-risk*3.0;
-
-    }else{
-
-        sl = price-a;
-        tp1 = price+a;
-        tp2 = price+a*2;
-        tp3 = price+a*3;
-
-    }
-
-    const confidence =
-        clamp(
-            50 + Math.abs(score)*7,
-            50,
-            95
+    const v20 =
+        sma(
+            previous.map(x=>x.volume),
+            20
         );
 
-    let basis = [];
-
-    if(ind.breakout){
-        basis.push(
-            "resistance breakout + volume expansion"
+    const v50 =
+        sma(
+            previous.map(x=>x.volume),
+            50
         );
-    }
 
-    if(ind.breakdown){
-        basis.push(
-            "support breakdown + volume expansion"
+    const currentVolume =
+        last.volume;
+
+    const volumeRatio =
+        v20>0
+            ? currentVolume/v20
+            : 1;
+
+    const longBuy =
+        last.takerBuy;
+
+    const total =
+        last.volume;
+
+    const buyRatio =
+        total>0
+            ? longBuy/total
+            : 0.5;
+
+    const sellRatio =
+        1-buyRatio;
+
+    const body =
+        Math.abs(
+            last.close-last.open
         );
-    }
 
-    basis.push(
-        ind.trend.toLowerCase()+" EMA structure"
-    );
+    const range =
+        Math.max(
+            last.high-last.low,
+            1e-12
+        );
 
-    basis.push(
-        "RSI "+ind.rsi.toFixed(1)
-    );
+    const bodyRatio =
+        body/range;
 
-    basis.push(
-        ind.macd.histogram >= 0
-            ? "positive MACD momentum"
-            : "negative MACD momentum"
-    );
-
-    basis.push(
-        ind.currentVol > ind.volAvg
-            ? "volume above average"
-            : "volume below average"
-    );
-
-    let tpBasis;
-
-    if(signal === "LONG"){
-
-        tpBasis =
-            "TPs are projected from ATR volatility, current structure and risk multiples.";
-
-    }else if(signal === "SHORT"){
-
-        tpBasis =
-            "TPs are projected from ATR volatility, current structure and risk multiples.";
-
-    }else{
-
-        tpBasis =
-            "No directional TP is activated because the timeframe does not have sufficient signal alignment.";
-
-    }
-
-    let slBasis;
-
-    if(signal === "LONG"){
-
-        slBasis =
-            "SL is placed below structural support/volatility invalidation.";
-
-    }else if(signal === "SHORT"){
-
-        slBasis =
-            "SL is placed above structural resistance/volatility invalidation.";
-
-    }else{
-
-        slBasis =
-            "Reference risk level based on current ATR; no active trade.";
-
-    }
-
-    const risk =
-        signal === "LONG"
-            ? price-sl
-            : signal === "SHORT"
-                ? sl-price
-                : a;
-
-    const reward =
-        signal === "LONG"
-            ? tp2-price
-            : signal === "SHORT"
-                ? price-tp2
-                : a;
-
-    const rr =
-        risk > 0
-            ? reward/risk
+    const priceChange =
+        last.open !== 0
+            ? (
+                (last.close-last.open)
+                /
+                last.open
+              )*100
             : 0;
 
+    const priceHistory =
+        previous
+        .slice(-20)
+        .map(x =>
+            x.open!==0
+            ?
+            ((x.close-x.open)/x.open)*100
+            :
+            0
+        );
+
+    const avgMove =
+        avg(
+            priceHistory
+            .map(x=>Math.abs(x))
+        );
+
+    /*
+       PRICE / VOLUME DIVERGENCE
+
+       Strong price movement with weak volume
+       = suspicious / weak move.
+    */
+
+    const lowVolumePump =
+        priceChange > avgMove*1.5 &&
+        volumeRatio < 0.85 &&
+        last.close > last.open;
+
+    const lowVolumeDump =
+        priceChange < -avgMove*1.5 &&
+        volumeRatio < 0.85 &&
+        last.close < last.open;
+
+    /*
+       REAL VOLUME EXPANSION
+    */
+
+    const volumeExpansion =
+        volumeRatio >= 1.5;
+
+    const extremeVolume =
+        volumeRatio >= 2.5;
+
+    /*
+       BUY / SELL PRESSURE
+    */
+
+    const buyPressure =
+        buyRatio >= 0.57;
+
+    const sellPressure =
+        buyRatio <= 0.43;
+
+    /*
+       ABSORPTION / EXHAUSTION
+
+       Huge volume but small body can mean
+       strong two-sided activity / absorption.
+    */
+
+    const absorption =
+        volumeRatio >= 1.8 &&
+        bodyRatio < 0.30;
+
+    let condition =
+        "NORMAL";
+
+    if(lowVolumePump)
+        condition =
+            "LOW-VOLUME PUMP";
+
+    else if(lowVolumeDump)
+        condition =
+            "LOW-VOLUME DUMP";
+
+    else if(absorption)
+        condition =
+            "HIGH-VOLUME ABSORPTION";
+
+    else if(volumeExpansion && buyPressure)
+        condition =
+            "BUY VOLUME EXPANSION";
+
+    else if(volumeExpansion && sellPressure)
+        condition =
+            "SELL VOLUME EXPANSION";
+
+    else if(volumeExpansion)
+        condition =
+            "VOLUME EXPANSION";
+
     return {
-        tf,
-        signal,
-        confidence,
-        price,
-        entryLow,
-        entryHigh,
-        sl,
-        tp1,
-        tp2,
-        tp3,
-        rr,
-        trend:ind.trend,
-        rsi:ind.rsi,
-        atr:a,
-        basis:basis.join(" • "),
-        tpBasis,
-        slBasis,
-        score,
-        indicators:ind
+
+        currentVolume,
+
+        avgVolume20:v20,
+
+        avgVolume50:v50,
+
+        volumeRatio,
+
+        buyRatio,
+
+        sellRatio,
+
+        priceChange,
+
+        avgMove,
+
+        volumeExpansion,
+
+        extremeVolume,
+
+        buyPressure,
+
+        sellPressure,
+
+        lowVolumePump,
+
+        lowVolumeDump,
+
+        absorption,
+
+        condition,
+
+        bodyRatio
+
     };
 
 }
 
-function renderTrade(trade){
 
-    let signalClass = "wait";
+/* =========================================================
+   HISTORICAL REACTION ENGINE
+========================================================= */
 
-    if(trade.signal === "LONG"){
-        signalClass = "long";
+function historicalReaction(c){
+
+    const last =
+        c[c.length-1];
+
+    const currentVolume =
+        last.volume;
+
+    const averageVolume =
+        sma(
+            c
+            .slice(0,-1)
+            .map(x=>x.volume),
+            20
+        );
+
+    const ratio =
+        averageVolume>0
+        ?
+        currentVolume/averageVolume
+        :
+        1;
+
+    const similar=[];
+
+    for(
+        let i=25;
+        i<c.length-4;
+        i++
+    ){
+
+        const v =
+            c[i].volume;
+
+        const r =
+            averageVolume>0
+            ?
+            v/averageVolume
+            :
+            1;
+
+        if(
+            Math.abs(
+                r-ratio
+            ) < 0.25
+        ){
+
+            const future =
+                (
+                    c[i+3].close-c[i].close
+                )
+                /
+                c[i].close
+                *100;
+
+            similar.push(
+                future
+            );
+
+        }
+
     }
 
-    if(trade.signal === "SHORT"){
-        signalClass = "short";
+    const historicalMove =
+        similar.length
+        ?
+        avg(similar)
+        :
+        0;
+
+    let interpretation =
+        "No strong historical analogue.";
+
+    if(similar.length >= 2){
+
+        if(historicalMove > 0.5){
+
+            interpretation =
+                "Similar historical volume conditions were followed by upside continuation.";
+
+        }
+
+        else if(historicalMove < -0.5){
+
+            interpretation =
+                "Similar historical volume conditions were followed by downside continuation.";
+
+        }
+
+        else{
+
+            interpretation =
+                "Similar historical volume conditions produced mixed/neutral follow-through.";
+
+        }
+
     }
 
-    const entry =
-        trade.signal === "WAIT"
-            ? "WAIT FOR CONFIRMATION"
-            : `${fmt(trade.entryLow)} — ${fmt(trade.entryHigh)}`;
+    return {
+
+        samples:
+            similar.length,
+
+        historicalMove,
+
+        interpretation
+
+    };
+
+}
+
+
+/* =========================================================
+   MARKET STRUCTURE
+========================================================= */
+
+function structure(c){
+
+    const recent =
+        c.slice(-40);
+
+    const highs =
+        recent.map(x=>x.high);
+
+    const lows =
+        recent.map(x=>x.low);
+
+    const resistance =
+        Math.max(
+            ...highs.slice(0,-2)
+        );
+
+    const support =
+        Math.min(
+            ...lows.slice(0,-2)
+        );
+
+    const price =
+        recent[recent.length-1].close;
+
+    const breakout =
+        price > resistance;
+
+    const breakdown =
+        price < support;
+
+    return {
+
+        resistance,
+
+        support,
+
+        breakout,
+
+        breakdown
+
+    };
+
+}
+
+
+/* =========================================================
+   COMPLETE INDICATOR ENGINE
+========================================================= */
+
+function indicators(c){
+
+    const closes =
+        c.map(x=>x.close);
+
+    const price =
+        closes[closes.length-1];
+
+    const e9 =
+        ema(closes,9);
+
+    const e21 =
+        ema(closes,21);
+
+    const e50 =
+        ema(closes,50);
+
+    const e100 =
+        ema(closes,100);
+
+    const r =
+        rsi(closes);
+
+    const a =
+        atr(c);
+
+    const m =
+        macd(closes);
+
+    const v =
+        volumeAnalysis(c);
+
+    const h =
+        historicalReaction(c);
+
+    const s =
+        structure(c);
+
+    let trend =
+        "NEUTRAL";
+
+    if(
+        e9>e21 &&
+        e21>e50 &&
+        price>e100
+    ){
+
+        trend="BULLISH";
+
+    }
+
+    else if(
+        e9<e21 &&
+        e21<e50 &&
+        price<e100
+    ){
+
+        trend="BEARISH";
+
+    }
+
+    return {
+
+        price,
+
+        ema9:e9,
+
+        ema21:e21,
+
+        ema50:e50,
+
+        ema100:e100,
+
+        rsi:r,
+
+        atr:a,
+
+        macd:m,
+
+        volume:v,
+
+        history:h,
+
+        structure:s,
+
+        trend
+
+    };
+
+}
+
+
+/* =========================================================
+   AI SCORE
+========================================================= */
+
+function analyze(c){
+
+    const x =
+        indicators(c);
+
+    let score=0;
+
+    const reasons=[];
+
+    /*
+       TREND
+    */
+
+    if(x.trend==="BULLISH"){
+
+        score+=3;
+
+        reasons.push(
+            "bullish EMA trend structure"
+        );
+
+    }
+
+    if(x.trend==="BEARISH"){
+
+        score-=3;
+
+        reasons.push(
+            "bearish EMA trend structure"
+        );
+
+    }
+
+
+    /*
+       PRICE vs EMA
+    */
+
+    if(x.price>x.ema21){
+
+        score++;
+
+        reasons.push(
+            "price above EMA21"
+        );
+
+    }
+
+    else{
+
+        score--;
+
+        reasons.push(
+            "price below EMA21"
+        );
+
+    }
+
+
+    /*
+       RSI
+    */
+
+    if(
+        x.rsi>=52 &&
+        x.rsi<=70
+    ){
+
+        score+=2;
+
+        reasons.push(
+            "bullish RSI momentum"
+        );
+
+    }
+
+    else if(
+        x.rsi<=48 &&
+        x.rsi>=30
+    ){
+
+        score-=2;
+
+        reasons.push(
+            "bearish RSI momentum"
+        );
+
+    }
+
+    else if(x.rsi>70){
+
+        reasons.push(
+            "RSI overheated — upside risk"
+        );
+
+    }
+
+    else if(x.rsi<30){
+
+        reasons.push(
+            "RSI oversold — downside exhaustion possible"
+        );
+
+    }
+
+
+    /*
+       MACD
+    */
+
+    if(
+        x.macd.histogram>0
+    ){
+
+        score+=2;
+
+        reasons.push(
+            "positive MACD momentum"
+        );
+
+    }
+
+    else{
+
+        score-=2;
+
+        reasons.push(
+            "negative MACD momentum"
+        );
+
+    }
+
+
+    /*
+       BREAKOUT
+    */
+
+    if(x.structure.breakout){
+
+        score+=3;
+
+        reasons.push(
+            "price above recent resistance"
+        );
+
+    }
+
+
+    /*
+       BREAKDOWN
+    */
+
+    if(x.structure.breakdown){
+
+        score-=3;
+
+        reasons.push(
+            "price below recent support"
+        );
+
+    }
+
+
+    /*
+       VOLUME
+    */
+
+    if(
+        x.volume.volumeExpansion &&
+        x.volume.buyPressure
+    ){
+
+        score+=3;
+
+        reasons.push(
+            "volume expansion with stronger taker-buy activity"
+        );
+
+    }
+
+    if(
+        x.volume.volumeExpansion &&
+        x.volume.sellPressure
+    ){
+
+        score-=3;
+
+        reasons.push(
+            "volume expansion with stronger sell pressure"
+        );
+
+    }
+
+
+    /*
+       LOW VOLUME PUMP / DUMP
+    */
+
+    if(
+        x.volume.lowVolumePump
+    ){
+
+        score-=3;
+
+        reasons.push(
+            "price pump is not confirmed by volume"
+        );
+
+    }
+
+    if(
+        x.volume.lowVolumeDump
+    ){
+
+        score+=3;
+
+        reasons.push(
+            "price dump is not confirmed by volume"
+        );
+
+    }
+
+
+    /*
+       ABSORPTION
+    */
+
+    if(x.volume.absorption){
+
+        reasons.push(
+            "high-volume absorption detected"
+        );
+
+    }
+
+
+    /*
+       HISTORICAL BEHAVIOR
+    */
+
+    if(
+        x.history.samples>=2 &&
+        x.history.historicalMove>0.5
+    ){
+
+        score+=1;
+
+        reasons.push(
+            "historical analogue showed positive follow-through"
+        );
+
+    }
+
+    if(
+        x.history.samples>=2 &&
+        x.history.historicalMove<-0.5
+    ){
+
+        score-=1;
+
+        reasons.push(
+            "historical analogue showed negative follow-through"
+        );
+
+    }
+
+
+    let signal="WAIT";
+
+    if(score>=6)
+        signal="LONG";
+
+    else if(score<=-6)
+        signal="SHORT";
+
+
+    /*
+       CONFIDENCE
+    */
+
+    let confidence =
+        50+
+        Math.abs(score)*5;
+
+    /*
+       Weak-volume manipulation filter
+    */
+
+    if(
+        x.volume.lowVolumePump ||
+        x.volume.lowVolumeDump
+    ){
+
+        confidence-=10;
+
+    }
+
+    confidence =
+        clamp(
+            confidence,
+            45,
+            94
+        );
+
+
+    return {
+
+        ...x,
+
+        score,
+
+        signal,
+
+        confidence,
+
+        reasons
+
+    };
+
+}
+
+
+/* =========================================================
+   TRADE SETUP
+========================================================= */
+
+function tradeSetup(tf,c){
+
+    const x =
+        analyze(c);
+
+    const p =
+        x.price;
+
+    const a =
+        x.atr ||
+        p*0.01;
+
+    let entryLow=p;
+
+    let entryHigh=p;
+
+    let sl=p;
+
+    let tp1=p;
+
+    let tp2=p;
+
+    let tp3=p;
+
+    if(x.signal==="LONG"){
+
+        entryLow =
+            Math.max(
+                x.ema21,
+                x.structure.support
+            );
+
+        entryHigh =
+            p+a*0.20;
+
+        sl =
+            Math.min(
+                x.structure.support-a*0.25,
+                p-a*1.25
+            );
+
+        const risk =
+            Math.max(
+                p-sl,
+                a
+            );
+
+        tp1 =
+            p+risk*1.2;
+
+        tp2 =
+            p+risk*2;
+
+        tp3 =
+            p+risk*3;
+
+    }
+
+    else if(x.signal==="SHORT"){
+
+        entryLow =
+            p-a*0.20;
+
+        entryHigh =
+            Math.min(
+                x.ema21,
+                x.structure.resistance
+            );
+
+        sl =
+            Math.max(
+                x.structure.resistance+a*0.25,
+                p+a*1.25
+            );
+
+        const risk =
+            Math.max(
+                sl-p,
+                a
+            );
+
+        tp1 =
+            p-risk*1.2;
+
+        tp2 =
+            p-risk*2;
+
+        tp3 =
+            p-risk*3;
+
+    }
+
+    else{
+
+        sl =
+            p-a;
+
+        tp1 =
+            p+a;
+
+        tp2 =
+            p+a*2;
+
+        tp3 =
+            p+a*3;
+
+    }
+
+
+    const risk =
+        x.signal==="LONG"
+        ?
+        p-sl
+        :
+        x.signal==="SHORT"
+        ?
+        sl-p
+        :
+        a;
+
+    const reward =
+        x.signal==="LONG"
+        ?
+        tp2-p
+        :
+        x.signal==="SHORT"
+        ?
+        p-tp2
+        :
+        a;
+
+    const rr =
+        risk>0
+        ?
+        reward/risk
+        :
+        0;
+
+
+    let tpBasis="";
+
+    if(x.signal==="LONG"){
+
+        tpBasis =
+            "TP1 uses the first expected reaction zone; TP2 uses the next structural/volatility expansion target; TP3 uses a wider ATR-based continuation target.";
+
+    }
+
+    else if(x.signal==="SHORT"){
+
+        tpBasis =
+            "TP1 uses the first expected reaction zone; TP2 uses the next structural/volatility expansion target; TP3 uses a wider ATR-based continuation target.";
+
+    }
+
+    else{
+
+        tpBasis =
+            "No active directional target because the timeframe lacks sufficient confirmation.";
+
+    }
+
+
+    let slBasis="";
+
+    if(x.signal==="LONG"){
+
+        slBasis =
+            "SL is below structural support with an ATR volatility buffer. A sustained move below this area invalidates the bullish setup.";
+
+    }
+
+    else if(x.signal==="SHORT"){
+
+        slBasis =
+            "SL is above structural resistance with an ATR volatility buffer. A sustained move above this area invalidates the bearish setup.";
+
+    }
+
+    else{
+
+        slBasis =
+            "Reference volatility level only. There is no active trade.";
+
+    }
+
+
+    return {
+
+        tf,
+
+        ...x,
+
+        entryLow,
+
+        entryHigh,
+
+        sl,
+
+        tp1,
+
+        tp2,
+
+        tp3,
+
+        rr,
+
+        tpBasis,
+
+        slBasis
+
+    };
+
+}
+
+
+/* =========================================================
+   RENDER TRADE
+========================================================= */
+
+function renderTrade(t){
+
+    const cls =
+        t.signal==="LONG"
+        ?
+        "long"
+        :
+        t.signal==="SHORT"
+        ?
+        "short"
+        :
+        "wait";
+
+
+    let volumeClass="neutral";
+
+    if(
+        t.volume.volumeExpansion &&
+        t.volume.buyPressure
+    )
+        volumeClass="good";
+
+    if(
+        t.volume.volumeExpansion &&
+        t.volume.sellPressure
+    )
+        volumeClass="bad";
+
+
+    let anomaly="NORMAL";
+
+    if(t.volume.lowVolumePump)
+        anomaly="LOW-VOLUME PUMP";
+
+    else if(t.volume.lowVolumeDump)
+        anomaly="LOW-VOLUME DUMP";
+
+    else if(t.volume.absorption)
+        anomaly="HIGH-VOLUME ABSORPTION";
+
+    else if(t.volume.volumeExpansion)
+        anomaly="VOLUME EXPANSION";
+
 
     return `
-    <div class="tf-card">
+
+    <div class="tf">
 
         <div class="tf-head">
 
             <div class="tf-name">
-                ${trade.tf.toUpperCase()}
+                ${t.tf.toUpperCase()}
             </div>
 
-            <div class="signal ${signalClass}">
-                ${trade.signal}
+            <div class="signal ${cls}">
+                ${t.signal}
             </div>
 
         </div>
 
+
         <div class="tf-body">
 
-            <div class="trade-price">
-                ${fmt(trade.price)}
+            <div class="big">
+                ${fmt(t.price)}
             </div>
 
-            <div class="trade-grid">
 
-                <div class="trade-box">
-                    <div class="trade-label">ENTRY ZONE</div>
-                    <div class="trade-value">${entry}</div>
-                </div>
+            <div class="grid">
 
-                <div class="trade-box">
-                    <div class="trade-label">CONFIDENCE</div>
-                    <div class="trade-value">
-                        ${trade.confidence.toFixed(0)}%
+                <div class="metric">
+                    <div class="metric-title">
+                        ENTRY
+                    </div>
+
+                    <div class="metric-value">
+                        ${
+                            t.signal==="WAIT"
+                            ?
+                            "WAIT"
+                            :
+                            fmt(t.entryLow)
+                            +" — "+
+                            fmt(t.entryHigh)
+                        }
                     </div>
                 </div>
 
-                <div class="trade-box">
-                    <div class="trade-label">STOP LOSS</div>
-                    <div class="trade-value">
-                        ${fmt(trade.sl)}
+
+                <div class="metric">
+                    <div class="metric-title">
+                        CONFIDENCE
+                    </div>
+
+                    <div class="metric-value">
+                        ${t.confidence.toFixed(0)}%
                     </div>
                 </div>
 
-                <div class="trade-box">
-                    <div class="trade-label">TP1</div>
-                    <div class="trade-value">
-                        ${fmt(trade.tp1)}
+
+                <div class="metric">
+                    <div class="metric-title">
+                        STOP LOSS
+                    </div>
+
+                    <div class="metric-value">
+                        ${fmt(t.sl)}
                     </div>
                 </div>
 
-                <div class="trade-box">
-                    <div class="trade-label">TP2</div>
-                    <div class="trade-value">
-                        ${fmt(trade.tp2)}
+
+                <div class="metric">
+                    <div class="metric-title">
+                        TP1
+                    </div>
+
+                    <div class="metric-value">
+                        ${fmt(t.tp1)}
                     </div>
                 </div>
 
-                <div class="trade-box">
-                    <div class="trade-label">TP3</div>
-                    <div class="trade-value">
-                        ${fmt(trade.tp3)}
+
+                <div class="metric">
+                    <div class="metric-title">
+                        TP2
+                    </div>
+
+                    <div class="metric-value">
+                        ${fmt(t.tp2)}
                     </div>
                 </div>
 
-                <div class="trade-box">
-                    <div class="trade-label">RISK / REWARD</div>
-                    <div class="trade-value">
-                        1 : ${trade.rr.toFixed(2)}
+
+                <div class="metric">
+                    <div class="metric-title">
+                        TP3
+                    </div>
+
+                    <div class="metric-value">
+                        ${fmt(t.tp3)}
                     </div>
                 </div>
 
-                <div class="trade-box">
-                    <div class="trade-label">TREND</div>
-                    <div class="trade-value">
-                        ${trade.trend}
+
+                <div class="metric">
+                    <div class="metric-title">
+                        RISK / REWARD
+                    </div>
+
+                    <div class="metric-value">
+                        1 : ${t.rr.toFixed(2)}
+                    </div>
+                </div>
+
+
+                <div class="metric">
+                    <div class="metric-title">
+                        TREND
+                    </div>
+
+                    <div class="metric-value">
+                        ${t.trend}
+                    </div>
+                </div>
+
+
+                <div class="metric">
+                    <div class="metric-title">
+                        RSI
+                    </div>
+
+                    <div class="metric-value">
+                        ${t.rsi.toFixed(1)}
+                    </div>
+                </div>
+
+
+                <div class="metric">
+                    <div class="metric-title">
+                        VOLUME RATIO
+                    </div>
+
+                    <div class="metric-value ${volumeClass}">
+                        ${t.volume.volumeRatio.toFixed(2)}×
+                    </div>
+                </div>
+
+
+                <div class="metric">
+                    <div class="metric-title">
+                        BUY VOLUME
+                    </div>
+
+                    <div class="metric-value">
+                        ${(t.volume.buyRatio*100).toFixed(1)}%
+                    </div>
+                </div>
+
+
+                <div class="metric">
+                    <div class="metric-title">
+                        VOLUME STATE
+                    </div>
+
+                    <div class="metric-value">
+                        ${anomaly}
                     </div>
                 </div>
 
             </div>
+
 
             <div class="reason">
 
@@ -1128,10 +2007,84 @@ function renderTrade(trade){
                 </div>
 
                 <div class="reason-text">
-                    ${trade.basis}
+                    ${t.reasons.join(" • ")}
                 </div>
 
             </div>
+
+
+            <div class="reason">
+
+                <div class="reason-title">
+                    PRICE / VOLUME INTELLIGENCE
+                </div>
+
+                <div class="reason-text">
+
+                    Current volume is
+                    ${t.volume.volumeRatio.toFixed(2)}×
+                    the previous 20-candle average.
+
+                    Taker-buy volume is
+                    ${(t.volume.buyRatio*100).toFixed(1)}%
+                    of current base volume.
+
+                    Current condition:
+                    <b>${anomaly}</b>.
+
+                    ${
+                        t.volume.lowVolumePump
+                        ?
+                        "Price is rising strongly without sufficient volume confirmation. The engine treats this as a potentially weak pump/breakout rather than blindly calling it bullish."
+                        :
+                        ""
+                    }
+
+                    ${
+                        t.volume.lowVolumeDump
+                        ?
+                        "Price is falling strongly without sufficient volume confirmation. The engine treats this as a potentially weak dump/exhaustion condition rather than blindly calling it bearish."
+                        :
+                        ""
+                    }
+
+                    ${
+                        t.volume.absorption
+                        ?
+                        "Large volume combined with a relatively small candle body suggests possible absorption/two-sided activity, so continuation is treated cautiously."
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="reason">
+
+                <div class="reason-title">
+                    HISTORICAL REACTION
+                </div>
+
+                <div class="reason-text">
+
+                    ${t.history.interpretation}
+
+                    ${
+                        t.history.samples
+                        ?
+                        " Historical comparison samples: "
+                        +
+                        t.history.samples
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </div>
+
 
             <div class="reason">
 
@@ -1140,10 +2093,11 @@ function renderTrade(trade){
                 </div>
 
                 <div class="reason-text">
-                    ${trade.tpBasis}
+                    ${t.tpBasis}
                 </div>
 
             </div>
+
 
             <div class="reason">
 
@@ -1152,21 +2106,38 @@ function renderTrade(trade){
                 </div>
 
                 <div class="reason-text">
-                    ${trade.slBasis}
+                    ${t.slBasis}
                 </div>
 
             </div>
 
+
             <div class="reason">
 
                 <div class="reason-title">
-                    TECHNICAL DATA
+                    MARKET STRUCTURE
                 </div>
 
                 <div class="reason-text">
-                    RSI: ${trade.rsi.toFixed(1)}
-                    • ATR: ${fmt(trade.atr)}
-                    • Score: ${trade.score}
+
+                    Support:
+                    ${fmt(t.structure.support)}
+
+                    • Resistance:
+                    ${fmt(t.structure.resistance)}
+
+                    • EMA9:
+                    ${fmt(t.ema9)}
+
+                    • EMA21:
+                    ${fmt(t.ema21)}
+
+                    • EMA50:
+                    ${fmt(t.ema50)}
+
+                    • EMA100:
+                    ${fmt(t.ema100)}
+
                 </div>
 
             </div>
@@ -1174,115 +2145,194 @@ function renderTrade(trade){
         </div>
 
     </div>
+
     `;
 
 }
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
 
 function renderSummary(trades){
 
+    const longs =
+        trades.filter(
+            x=>x.signal==="LONG"
+        ).length;
+
+    const shorts =
+        trades.filter(
+            x=>x.signal==="SHORT"
+        ).length;
+
+    const waits =
+        trades.filter(
+            x=>x.signal==="WAIT"
+        ).length;
+
+
+    let bias="NEUTRAL";
+
+    if(longs>=3 && longs>shorts)
+        bias="BULLISH";
+
+    else if(shorts>=3 && shorts>longs)
+        bias="BEARISH";
+
+
     const active =
-        trades.filter(t=>t.signal !== "WAIT");
+        trades.filter(
+            x=>x.signal!=="WAIT"
+        );
 
-    let longCount =
-        trades.filter(t=>t.signal === "LONG").length;
-
-    let shortCount =
-        trades.filter(t=>t.signal === "SHORT").length;
-
-    let waitCount =
-        trades.filter(t=>t.signal === "WAIT").length;
-
-    let overall = "NEUTRAL";
-
-    if(longCount > shortCount && longCount >= 3){
-        overall = "BULLISH";
-    }
-
-    if(shortCount > longCount && shortCount >= 3){
-        overall = "BEARISH";
-    }
-
-    const avgConfidence =
+    const confidence =
         active.length
-            ? average(active.map(t=>t.confidence))
-            : 0;
+        ?
+        avg(
+            active.map(
+                x=>x.confidence
+            )
+        )
+        :
+        0;
 
-    let description =
-        "Timeframes are not sufficiently aligned for a strong directional setup.";
 
-    if(overall === "BULLISH"){
-        description =
-            "Multiple timeframes are aligned toward bullish conditions. Lower timeframes should still wait for their own entry confirmation.";
+    const volumeWarnings =
+        trades.filter(
+            x =>
+                x.volume.lowVolumePump ||
+                x.volume.lowVolumeDump
+        ).length;
+
+
+    let explanation =
+        "Timeframes are mixed. The engine is waiting for stronger alignment.";
+
+    if(bias==="BULLISH"){
+
+        explanation =
+            "Multiple timeframes are showing bullish alignment, but each lower timeframe still requires its own price/volume confirmation.";
+
     }
 
-    if(overall === "BEARISH"){
-        description =
-            "Multiple timeframes are aligned toward bearish conditions. Lower timeframes should still wait for their own entry confirmation.";
+    else if(bias==="BEARISH"){
+
+        explanation =
+            "Multiple timeframes are showing bearish alignment, but each lower timeframe still requires its own price/volume confirmation.";
+
     }
 
-    $("aiSummary").innerHTML = `
 
-        <h2>AI MARKET BIAS: ${overall}</h2>
+    $("summary").innerHTML = `
+
+        <h3>
+            AI MARKET BIAS: ${bias}
+        </h3>
+
 
         <div class="summary-grid">
 
-            <div class="summary-item">
-                <div class="summary-label">
-                    LONG SIGNALS
+            <div class="box">
+                <div class="label">
+                    LONG
                 </div>
-                <div class="summary-value">
-                    ${longCount}
+
+                <div class="value good">
+                    ${longs}
                 </div>
             </div>
 
-            <div class="summary-item">
-                <div class="summary-label">
-                    SHORT SIGNALS
+
+            <div class="box">
+                <div class="label">
+                    SHORT
                 </div>
-                <div class="summary-value">
-                    ${shortCount}
+
+                <div class="value bad">
+                    ${shorts}
                 </div>
             </div>
 
-            <div class="summary-item">
-                <div class="summary-label">
+
+            <div class="box">
+                <div class="label">
                     WAIT
                 </div>
-                <div class="summary-value">
-                    ${waitCount}
+
+                <div class="value neutral">
+                    ${waits}
                 </div>
             </div>
 
-            <div class="summary-item">
-                <div class="summary-label">
+
+            <div class="box">
+                <div class="label">
                     AVG CONFIDENCE
                 </div>
-                <div class="summary-value">
-                    ${avgConfidence
-                        ? avgConfidence.toFixed(0)+"%"
-                        : "--"}
+
+                <div class="value">
+                    ${
+                        confidence
+                        ?
+                        confidence.toFixed(0)+"%"
+                        :
+                        "--"
+                    }
+                </div>
+            </div>
+
+
+            <div class="box">
+                <div class="label">
+                    VOLUME WARNINGS
+                </div>
+
+                <div class="value neutral">
+                    ${volumeWarnings}
+                </div>
+            </div>
+
+
+            <div class="box">
+                <div class="label">
+                    TIMEFRAMES
+                </div>
+
+                <div class="value">
+                    9
                 </div>
             </div>
 
         </div>
 
+
         <div class="reason">
+
             <div class="reason-title">
-                MULTI-TIMEFRAME AI INTERPRETATION
+                AI INTERPRETATION
             </div>
 
             <div class="reason-text">
-                ${description}
+                ${explanation}
             </div>
+
         </div>
 
     `;
 
 }
 
-function drawChart(candles){
 
-    const canvas = $("chart");
+/* =========================================================
+   CHART
+========================================================= */
+
+function drawChart(c){
+
+    const canvas =
+        $("canvas");
 
     const rect =
         canvas.getBoundingClientRect();
@@ -1301,23 +2351,33 @@ function drawChart(candles){
 
     ctx.scale(dpr,dpr);
 
-    const width = rect.width;
-    const height = 300;
+    const w =
+        rect.width;
 
-    ctx.clearRect(0,0,width,height);
+    const h =
+        300;
 
-    if(!candles || candles.length < 2){
+    ctx.clearRect(
+        0,0,w,h
+    );
+
+
+    if(c.length<2)
         return;
-    }
+
 
     const visible =
-        candles.slice(-80);
+        c.slice(-80);
 
     const highs =
-        visible.map(c=>c.high);
+        visible.map(
+            x=>x.high
+        );
 
     const lows =
-        visible.map(c=>c.low);
+        visible.map(
+            x=>x.low
+        );
 
     const max =
         Math.max(...highs);
@@ -1328,195 +2388,350 @@ function drawChart(candles){
     const range =
         max-min || 1;
 
-    const xStep =
-        width/(visible.length-1);
+    const step =
+        w/(visible.length-1);
 
-    ctx.lineWidth = 1;
 
-    for(let i=0;i<visible.length;i++){
+    visible.forEach(
+        (x,i)=>{
 
-        const c = visible[i];
+            const px =
+                i*step;
 
-        const x = i*xStep;
+            const high =
+                h-
+                (
+                    (x.high-min)
+                    /
+                    range
+                )*
+                (h-20)-10;
 
-        const yHigh =
-            height-
-            ((c.high-min)/range)*(height-20)-10;
+            const low =
+                h-
+                (
+                    (x.low-min)
+                    /
+                    range
+                )*
+                (h-20)-10;
 
-        const yLow =
-            height-
-            ((c.low-min)/range)*(height-20)-10;
+            const open =
+                h-
+                (
+                    (x.open-min)
+                    /
+                    range
+                )*
+                (h-20)-10;
 
-        const yOpen =
-            height-
-            ((c.open-min)/range)*(height-20)-10;
+            const close =
+                h-
+                (
+                    (x.close-min)
+                    /
+                    range
+                )*
+                (h-20)-10;
 
-        const yClose =
-            height-
-            ((c.close-min)/range)*(height-20)-10;
+            const up =
+                x.close>=x.open;
 
-        const rising =
-            c.close >= c.open;
+            ctx.strokeStyle =
+                up
+                ?
+                "#55e6a5"
+                :
+                "#ff7188";
 
-        ctx.strokeStyle =
-            rising
-                ? "#55e6a5"
-                : "#ff7089";
+            ctx.fillStyle =
+                ctx.strokeStyle;
 
-        ctx.fillStyle =
-            rising
-                ? "#55e6a5"
-                : "#ff7089";
+            ctx.beginPath();
 
-        ctx.beginPath();
-
-        ctx.moveTo(x,yHigh);
-        ctx.lineTo(x,yLow);
-
-        ctx.stroke();
-
-        const candleWidth =
-            Math.max(
-                2,
-                xStep*0.55
+            ctx.moveTo(
+                px,
+                high
             );
 
-        const bodyTop =
-            Math.min(
-                yOpen,
-                yClose
+            ctx.lineTo(
+                px,
+                low
             );
 
-        const bodyHeight =
-            Math.max(
-                1,
-                Math.abs(
-                    yClose-yOpen
+            ctx.stroke();
+
+
+            const bw =
+                Math.max(
+                    2,
+                    step*.55
+                );
+
+            ctx.fillRect(
+
+                px-bw/2,
+
+                Math.min(
+                    open,
+                    close
+                ),
+
+                bw,
+
+                Math.max(
+                    1,
+                    Math.abs(
+                        close-open
+                    )
                 )
+
             );
 
-        ctx.fillRect(
-            x-candleWidth/2,
-            bodyTop,
-            candleWidth,
-            bodyHeight
-        );
-
-    }
+        }
+    );
 
 }
+
+
+/* =========================================================
+   MARKET TICKER
+========================================================= */
+
+async function loadTicker(){
+
+    const base =
+        endpoint();
+
+    const url =
+        xauMode
+
+        ?
+
+        `${base}/ticker/24hr?symbol=${symbol}`
+
+        :
+
+        `${base}/ticker/24hr?symbol=${symbol}`;
+
+
+    const t =
+        await getJSON(url);
+
+    market=t;
+
+
+    $("symbol").textContent =
+        symbol.replace(
+            "USDT",
+            " / USDT"
+        );
+
+    $("price").textContent =
+        "$"+fmt(
+            Number(t.lastPrice)
+        );
+
+    $("change").textContent =
+        Number(
+            t.priceChangePercent
+        ).toFixed(2)+"%";
+
+    $("high").textContent =
+        "$"+fmt(
+            Number(t.highPrice)
+        );
+
+    $("low").textContent =
+        "$"+fmt(
+            Number(t.lowPrice)
+        );
+
+    $("volume").textContent =
+        fmt(
+            Number(t.volume)
+        );
+
+}
+
+
+/* =========================================================
+   CHART LOAD
+========================================================= */
 
 async function loadChart(){
 
     const tf =
         $("chartTf").value;
 
-    try{
+    const c =
+        await loadCandles(tf);
 
-        const candles =
-            await loadTimeframe(tf);
+    data[tf]=c;
 
-        drawChart(candles);
+    drawChart(c);
 
-        $("chartTitle").textContent =
-            currentSymbol.replace("USDT"," / USDT")
-            + " — "
-            + tf.toUpperCase();
+    $("chartTitle").textContent =
+        symbol.replace(
+            "USDT",
+            " / USDT"
+        )
+        +
+        " — "
+        +
+        tf.toUpperCase();
 
-        $("chartTime").textContent =
-            new Date().toLocaleTimeString();
-
-    }catch(error){
-
-        console.error(error);
-
-    }
+    $("chartTime").textContent =
+        new Date()
+        .toLocaleTimeString();
 
 }
+
+
+/* =========================================================
+   AI ANALYSIS
+========================================================= */
 
 async function runAI(){
 
     $("timeframes").innerHTML =
-        `<div class="loading">
-            AI engine analyzing 9 timeframes...
-        </div>`;
+        `
+        <div class="loading">
+            AI is processing historical price,
+            volume, taker-buy activity,
+            structure and momentum...
+        </div>
+        `;
 
-    try{
 
-        const results =
-            await Promise.all(
-                TIMEFRAMES.map(
-                    tf => loadTimeframe(tf)
-                )
-            );
+    const results =
+        await Promise.all(
 
-        const trades =
             TIMEFRAMES.map(
-                (tf,i) =>
-                    buildTrade(
+                async tf => {
+
+                    const c =
+                        await loadCandles(tf);
+
+                    data[tf]=c;
+
+                    return tradeSetup(
                         tf,
-                        results[i]
-                    )
-            );
+                        c
+                    );
 
-        renderSummary(trades);
+                }
+            )
 
-        $("timeframes").innerHTML =
-            trades.map(
-                trade => renderTrade(trade)
-            ).join("");
-
-        setStatus(
-            "● AI ANALYSIS LIVE"
         );
 
-    }catch(error){
 
-        console.error(error);
+    renderSummary(
+        results
+    );
 
-        $("timeframes").innerHTML =
-            `<div class="loading">
-                AI DATA ERROR: ${error.message}
-            </div>`;
 
-        setStatus(
-            "● AI DATA ERROR"
-        );
+    $("timeframes").innerHTML =
+        results
+        .map(
+            renderTrade
+        )
+        .join("");
 
-    }
+
+    $("status").textContent =
+        "● AI ANALYSIS LIVE";
 
 }
+
+
+/* =========================================================
+   XAU VALIDATION
+========================================================= */
+
+async function setSymbol(newSymbol){
+
+    symbol =
+        newSymbol;
+
+    xauMode =
+        symbol==="XAUUSDT";
+
+
+    /*
+       XAUUSDT is handled through Binance
+       futures market-data endpoints.
+    */
+
+    await refresh();
+
+}
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
 
 async function refresh(){
 
-    await loadMarket();
+    try{
 
-    await loadChart();
+        $("status").textContent =
+            "● ANALYZING "+symbol;
 
-    await runAI();
-
-}
-
-$("coinSelect").addEventListener(
-    "change",
-    async function(){
-
-        currentSymbol =
-            this.value;
-
-        await refresh();
-
-    }
-);
-
-$("chartTf").addEventListener(
-    "change",
-    async function(){
+        await loadTicker();
 
         await loadChart();
 
+        await runAI();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        $("status").textContent =
+            "● DATA ERROR";
+
+        $("timeframes").innerHTML =
+            `
+            <div class="loading">
+                DATA ERROR:
+                ${error.message}
+            </div>
+            `;
+
+    }
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+$("coin").addEventListener(
+    "change",
+    function(){
+
+        setSymbol(
+            this.value
+        );
+
     }
 );
+
+
+$("chartTf").addEventListener(
+    "change",
+    function(){
+
+        loadChart();
+
+    }
+);
+
 
 window.addEventListener(
     "resize",
@@ -1525,20 +2740,31 @@ window.addEventListener(
         const tf =
             $("chartTf").value;
 
-        if(timeframeData[tf]){
+        if(data[tf])
             drawChart(
-                timeframeData[tf]
+                data[tf]
             );
-        }
 
     }
 );
 
-/* APP START */
 
-loadMarket();
-loadChart();
-runAI();
+/* =========================================================
+   APP START
+========================================================= */
+
+loadMarketSafe();
+
+async function loadMarketSafe(){
+
+    await refresh();
+
+}
+
+
+/*
+   Refresh every 60 seconds.
+*/
 
 setInterval(
     refresh,
