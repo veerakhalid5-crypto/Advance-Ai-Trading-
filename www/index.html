@@ -1839,17 +1839,14 @@ function generateSignal(){
     if(a){
 
         if(signal==="LONG"){
+/* APP START */
 
-        /* APP START */
+loadMarket();
 
-document.addEventListener("DOMContentLoaded", () => {
+timer = setInterval(() => {
 
-    loadMarket();
+    if (live) {
+        loadMarket();
+    }
 
-    timer = setInterval(() => {
-        if (live) {
-            loadMarket();
-        }
-    }, 30000);
-
-});
+}, 30000);
