@@ -21,7 +21,14 @@ jobs:
 
       - name: Build web app
         run: npm run build
-
+        - name: Verify App Source
+          run: |
+            echo "=== connectionStatus ==="
+            grep -n "connectionStatus" www/index.html || true
+            echo "=== loadMarket ==="
+            grep -n "loadMarket" www/index.html || true
+            echo "=== APP START ==="
+            grep -n "APP START" www/index.html || true
       - name: Add Android platform
         run: npx cap add android
 
