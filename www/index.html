@@ -4,43 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Crypto AI</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 20px;
+            background: #0b0f14;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        #status {
+            margin-bottom: 25px;
+            color: #38e89a;
+        }
+
+        #price {
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        #time {
+            margin-top: 12px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
 
 <h1>Advanced Crypto AI</h1>
 
-<div id="status">APP STARTING...</div>
+<div id="status">CONNECTING...</div>
+
+<div id="price">Loading BTC...</div>
+
+<div id="time">Waiting for data...</div>
 
 <script>
-async function testConnection() {
 
-    const status = document.getElementById("status");
+async function loadBTC() {
 
-    status.textContent = "CONNECTING...";
+    const status =
+        document.getElementById("status");
+
+    const price =
+        document.getElementById("price");
+
+    const time =
+        document.getElementById("time");
 
     try {
 
         const response = await fetch(
-            "https://api.binance.com/api/v3/ping"
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
         );
 
         if (!response.ok) {
-            throw new Error("HTTP " + response.status);
+            throw new Error(
+                "HTTP " + response.status
+            );
         }
 
+        const data =
+            await response.json();
+
+        const btcPrice =
+            Number(data.price);
+
+        price.textContent =
+            "$" +
+            btcPrice.toLocaleString(
+                "en-US",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
         status.textContent =
-            "BINANCE CONNECTION WORKING ✓";
+            "● BINANCE LIVE";
 
-    } catch (error) {
+        status.style.color =
+            "#38e89a";
+
+        time.textContent =
+            "Updated: " +
+            new Date().toLocaleTimeString();
+
+    }
+    catch(error) {
 
         status.textContent =
-            "BINANCE ERROR: " + error.message;
+            "● DATA ERROR";
 
+        status.style.color =
+            "#ff5964";
+
+        price.textContent =
+            "Unable to load BTC";
+
+        time.textContent =
+            error.message;
     }
 }
 
-testConnection();
+loadBTC();
+
+setInterval(
+    loadBTC,
+    10000
+);
+
 </script>
 
 </body>
