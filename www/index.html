@@ -3,37 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Advanced Crypto AI</title>
 
     <style>
         body {
             margin: 0;
-            padding: 30px 20px;
+            padding: 20px;
             background: #0b0f14;
-            color: white;
+            color: #ffffff;
             font-family: Arial, sans-serif;
-            text-align: center;
         }
 
         h1 {
-            margin-bottom: 30px;
+            text-align: center;
         }
 
-        #status {
-            margin-bottom: 25px;
+        .box {
+            background: #151b24;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 15px;
+        }
+
+        .label {
+            color: #8d99a8;
+            font-size: 13px;
+        }
+
+        .value {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        #btcPrice {
+            font-size: 34px;
+        }
+
+        .bullish {
             color: #38e89a;
         }
 
-        #price {
-            font-size: 36px;
-            font-weight: bold;
-            margin-top: 20px;
+        .bearish {
+            color: #ff5964;
         }
 
-        #time {
+        .neutral {
+            color: #ffc857;
+        }
+
+        .item {
             margin-top: 12px;
-            color: #999;
-            font-size: 14px;
         }
     </style>
 </head>
@@ -42,46 +63,77 @@
 
 <h1>Advanced Crypto AI</h1>
 
-<div id="status">CONNECTING...</div>
+<div class="box">
+    <div class="label">BTC/USDT</div>
+    <div id="btcPrice" class="value">Loading...</div>
+    <div id="status">CONNECTING...</div>
+</div>
 
-<div id="price">Loading BTC...</div>
+<div class="box">
 
-<div id="time">Waiting for data...</div>
+    <div class="item">
+        <div class="label">ICT / SMC Bias</div>
+        <div id="bias" class="value neutral">ANALYZING...</div>
+    </div>
+
+    <div class="item">
+        <div class="label">Market Structure</div>
+        <div id="structure" class="value">--</div>
+    </div>
+
+    <div class="item">
+        <div class="label">Liquidity</div>
+        <div id="liquidity" class="value">--</div>
+    </div>
+
+    <div class="item">
+        <div class="label">Fair Value Gap</div>
+        <div id="fvg" class="value">--</div>
+    </div>
+
+    <div class="item">
+        <div class="label">CRT</div>
+        <div id="crt" class="value">--</div>
+    </div>
+
+    <div class="item">
+        <div class="label">Order Block</div>
+        <div id="orderBlock" class="value">--</div>
+    </div>
+
+</div>
 
 <script>
 
-async function loadBTC() {
+const API =
+    "https://api.binance.com/api/v3/klines";
 
-    const status =
-        document.getElementById("status");
+const PRICE_API =
+    "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT";
 
-    const price =
-        document.getElementById("price");
+let candles = [];
 
-    const time =
-        document.getElementById("time");
+
+/* =========================
+   FETCH MARKET DATA
+========================= */
+
+async function loadMarket() {
 
     try {
 
-        const response = await fetch(
-            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
-        );
+        const priceResponse =
+            await fetch(PRICE_API);
 
-        if (!response.ok) {
-            throw new Error(
-                "HTTP " + response.status
-            );
-        }
+        const priceData =
+            await priceResponse.json();
 
-        const data =
-            await response.json();
+        const price =
+            Number(priceData.price);
 
-        const btcPrice =
-            Number(data.price);
-
-        price.textContent =
+        document.getElementById("btcPrice").textContent =
             "$" +
-            btcPrice.toLocaleString(
+            price.toLocaleString(
                 "en-US",
                 {
                     minimumFractionDigits: 2,
@@ -89,41 +141,124 @@ async function loadBTC() {
                 }
             );
 
-        status.textContent =
-            "● BINANCE LIVE";
 
-        status.style.color =
+        const response =
+            await fetch(
+                API +
+                "?symbol=BTCUSDT" +
+                "&interval=15m" +
+                "&limit=200"
+            );
+
+        if (!response.ok)
+            throw new Error(
+                "Market API " +
+                response.status
+            );
+
+
+        const data =
+            await response.json();
+
+
+        candles =
+            data.map(function(c) {
+
+                return {
+
+                    time: Number(c[0]),
+
+                    open: Number(c[1]),
+
+                    high: Number(c[2]),
+
+                    low: Number(c[3]),
+
+                    close: Number(c[4]),
+
+                    volume: Number(c[5])
+
+                };
+
+            });
+
+
+        document.getElementById("status").textContent =
+            "● LIVE MARKET DATA";
+
+        document.getElementById("status").style.color =
             "#38e89a";
 
-        time.textContent =
-            "Updated: " +
-            new Date().toLocaleTimeString();
+
+        analyzeICT();
+
 
     }
     catch(error) {
 
-        status.textContent =
+        console.error(error);
+
+        document.getElementById("status").textContent =
             "● DATA ERROR";
 
-        status.style.color =
+        document.getElementById("status").style.color =
             "#ff5964";
 
-        price.textContent =
-            "Unable to load BTC";
-
-        time.textContent =
-            error.message;
     }
+
 }
 
-loadBTC();
 
-setInterval(
-    loadBTC,
-    10000
-);
+/* =========================
+   SWING STRUCTURE
+========================= */
 
-</script>
+function getStructure() {
 
-</body>
-</html>
+    if (candles.length < 10)
+        return "WAITING";
+
+
+    const recent =
+        candles.slice(-10);
+
+
+    const highs =
+        recent.map(c => c.high);
+
+    const lows =
+        recent.map(c => c.low);
+
+
+    const highest =
+        Math.max(...highs);
+
+    const lowest =
+        Math.min(...lows);
+
+
+    const last =
+        recent[recent.length - 1];
+
+
+    if (last.close > highest)
+        return "BULLISH BOS";
+
+    if (last.close < lowest)
+        return "BEARISH BOS";
+
+
+    const previous =
+        recent[recent.length - 2];
+
+
+    if (
+        last.high > previous.high &&
+        last.low > previous.low
+    )
+        return "BULLISH STRUCTURE";
+
+
+    if (
+        last.high < previous.high &&
+        last.low
