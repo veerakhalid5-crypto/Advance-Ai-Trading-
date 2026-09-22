@@ -50,7 +50,7 @@
         }
 
         .value {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
         }
 
@@ -60,6 +60,7 @@
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid #252d38;
+            gap: 10px;
         }
 
         .row:last-child {
@@ -80,6 +81,10 @@
 
         .blue {
             color: #58a6ff;
+        }
+
+        .gray {
+            color: #8d99a8;
         }
 
         #status {
@@ -106,9 +111,9 @@
 </h1>
 
 
-<!-- ====================================== -->
+<!-- ========================================= -->
 <!-- BTC PRICE -->
-<!-- ====================================== -->
+<!-- ========================================= -->
 
 <div class="box">
 
@@ -137,9 +142,9 @@
 </div>
 
 
-<!-- ====================================== -->
+<!-- ========================================= -->
 <!-- BTC VOLUME -->
-<!-- ====================================== -->
+<!-- ========================================= -->
 
 <div class="box">
 
@@ -182,9 +187,9 @@
 </div>
 
 
-<!-- ====================================== -->
+<!-- ========================================= -->
 <!-- BTC LIQUIDATIONS -->
-<!-- ====================================== -->
+<!-- ========================================= -->
 
 <div class="box">
 
@@ -256,15 +261,47 @@
 
     </div>
 
+
+    <div class="row">
+
+        <span>
+            Largest Recent Liquidation
+        </span>
+
+        <span
+            id="largestLiquidation"
+            class="value yellow"
+        >
+            Loading...
+        </span>
+
+    </div>
+
+
+    <div class="row">
+
+        <span>
+            Data Source
+        </span>
+
+        <span
+            id="liquidationSource"
+            class="value gray"
+        >
+            MarginPad
+        </span>
+
+    </div>
+
 </div>
 
 
 <script>
 
 
-/* ====================================== */
+/* ========================================= */
 /* BINANCE API */
-/* ====================================== */
+/* ========================================= */
 
 
 const PRICE_API =
@@ -275,37 +312,38 @@ const KLINE_API =
     "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=24";
 
 
-/* ====================================== */
+/* ========================================= */
 /* PUBLIC LIQUIDATION API */
-/* ====================================== */
+/* ========================================= */
 
 
 /*
- * MarginPad public liquidation API.
- *
- * No API key required.
- *
- * 24H market liquidation data.
+ * 24H aggregated liquidation data
  */
 
 const LIQUIDATION_API =
     "https://marginpad.io/api/v1/liquidations";
 
 
-/* ====================================== */
-/* FORMAT FUNCTIONS */
-/* ====================================== */
+/*
+ * Recent BTC liquidation events
+ */
+
+const BTC_LIVE_LIQUIDATION_API =
+    "https://marginpad.io/api/v1/liquidations/live?symbol=BTC&limit=400";
+
+
+/* ========================================= */
+/* FORMAT HELPERS */
+/* ========================================= */
 
 
 function formatUSD(value) {
 
-    const number =
-        Number(value);
+    const number = Number(value);
 
     if (!Number.isFinite(number)) {
-
         return "--";
-
     }
 
     return "$" +
@@ -315,13 +353,29 @@ function formatUSD(value) {
                 maximumFractionDigits: 0
             }
         );
-
 }
 
 
-/* ====================================== */
+function formatNumber(value) {
+
+    const number = Number(value);
+
+    if (!Number.isFinite(number)) {
+        return "--";
+    }
+
+    return number.toLocaleString(
+        "en-US",
+        {
+            maximumFractionDigits: 0
+        }
+    );
+}
+
+
+/* ========================================= */
 /* BINANCE MARKET DATA */
-/* ====================================== */
+/* ========================================= */
 
 
 async function loadMarket() {
@@ -329,9 +383,9 @@ async function loadMarket() {
     try {
 
 
-        /* ============================== */
+        /* ================================= */
         /* BTC PRICE */
-        /* ============================== */
+        /* ================================= */
 
 
         const priceResponse =
@@ -375,9 +429,9 @@ async function loadMarket() {
             );
 
 
-        /* ============================== */
+        /* ================================= */
         /* BTC VOLUME */
-        /* ============================== */
+        /* ================================= */
 
 
         const volumeResponse =
@@ -412,9 +466,9 @@ async function loadMarket() {
         }
 
 
-        /* ============================== */
+        /* ================================= */
         /* 1H BTC VOLUME */
-        /* ============================== */
+        /* ================================= */
 
 
         const latest =
@@ -424,8 +478,9 @@ async function loadMarket() {
 
 
         /*
-         * Binance Kline [5]
-         * = BTC base-asset volume
+         * Binance Kline field [5]
+         * = base asset volume
+         * = BTC volume
          */
 
         const volume1h =
@@ -446,9 +501,9 @@ async function loadMarket() {
             ) + " BTC";
 
 
-        /* ============================== */
+        /* ================================= */
         /* 24H BTC VOLUME */
-        /* ============================== */
+        /* ================================= */
 
 
         let volume24h = 0;
@@ -478,9 +533,9 @@ async function loadMarket() {
             ) + " BTC";
 
 
-        /* ============================== */
-        /* BINANCE STATUS */
-        /* ============================== */
+        /* ================================= */
+        /* STATUS */
+        /* ================================= */
 
 
         document.getElementById(
@@ -536,9 +591,9 @@ async function loadMarket() {
 }
 
 
-/* ====================================== */
-/* PUBLIC BTC LIQUIDATION DATA */
-/* ====================================== */
+/* ========================================= */
+/* BTC LIQUIDATION DATA */
+/* ========================================= */
 
 
 async function loadLiquidations() {
@@ -546,10 +601,10 @@ async function loadLiquidations() {
     try {
 
 
-        /*
-         * Ask MarginPad for its
-         * public 24H liquidation data.
-         */
+        /* ================================= */
+        /* GET 24H AGGREGATED DATA */
+        /* ================================= */
+
 
         const response =
             await fetch(
@@ -572,13 +627,14 @@ async function loadLiquidations() {
 
 
         console.log(
-            "Liquidation data:",
+            "MarginPad liquidation data:",
             result
         );
 
 
         if (
-            !result.ok ||
+            !result ||
+            result.ok !== true ||
             !result.data
         ) {
 
@@ -594,31 +650,91 @@ async function loadLiquidations() {
 
 
         /*
-         * The public endpoint contains
-         * market totals plus per-coin data.
+         * Market-wide data.
          */
+
+        let longLiquidation =
+            Number(
+                data.market &&
+                data.market.long
+            );
+
+
+        let shortLiquidation =
+            Number(
+                data.market &&
+                data.market.short
+            );
+
+
+        let totalLiquidation =
+            Number(
+                data.market &&
+                data.market.total
+            );
+
+
+        let eventCount =
+            Number(
+                data.market &&
+                data.market.count
+            );
+
+
+        /* ================================= */
+        /* FIND BTC IN COIN BREAKDOWN */
+        /* ================================= */
 
 
         let btc = null;
 
 
         /*
-         * Look for BTC in the coin list.
+         * Search common coin arrays.
          */
 
-        if (
-            Array.isArray(
-                data.coins
-            )
+        const possibleLists = [
+
+            data.coins,
+
+            data.rows,
+
+            data.topCoins,
+
+            data.perCoin,
+
+            data.coinBreakdown
+
+        ];
+
+
+        for (
+            let i = 0;
+            i < possibleLists.length;
+            i++
         ) {
 
-            btc =
-                data.coins.find(
+            const list =
+                possibleLists[i];
+
+
+            if (
+                !Array.isArray(list)
+            ) {
+
+                continue;
+
+            }
+
+
+            const found =
+                list.find(
                     function(item) {
 
                         return String(
                             item.symbol ||
                             item.coin ||
+                            item.asset ||
                             ""
                         ).toUpperCase()
                         === "BTC";
@@ -626,153 +742,300 @@ async function loadLiquidations() {
                     }
                 );
 
-        }
 
+            if (found) {
 
-        /*
-         * Some responses may use rows.
-         */
+                btc = found;
 
-        if (
-            !btc &&
-            Array.isArray(
-                data.rows
-            )
-        ) {
+                break;
 
-            btc =
-                data.rows.find(
-                    function(item) {
-
-                        return String(
-                            item.symbol ||
-                            item.coin ||
-                            ""
-                        ).toUpperCase()
-                        === "BTC";
-
-                    }
-                );
+            }
 
         }
 
 
         /*
          * If BTC-specific data exists,
-         * use it.
+         * prefer it.
          */
 
         if (btc) {
 
 
-            const longLiquidation =
+            const btcLong =
                 Number(
-                    btc.long ||
-                    btc.longLiquidation ||
-                    btc.long_liquidation ||
-                    0
+                    btc.long ??
+                    btc.longLiquidation ??
+                    btc.long_liquidation
                 );
 
 
-            const shortLiquidation =
+            const btcShort =
                 Number(
-                    btc.short ||
-                    btc.shortLiquidation ||
-                    btc.short_liquidation ||
-                    0
+                    btc.short ??
+                    btc.shortLiquidation ??
+                    btc.short_liquidation
                 );
 
 
-            let totalLiquidation =
+            const btcTotal =
                 Number(
-                    btc.total ||
-                    btc.totalLiquidation ||
-                    btc.total_liquidation ||
-                    0
+                    btc.total ??
+                    btc.totalLiquidation ??
+                    btc.total_liquidation
                 );
 
 
-            /*
-             * If total isn't supplied,
-             * calculate it.
-             */
+            const btcCount =
+                Number(
+                    btc.count ??
+                    btc.events ??
+                    btc.eventCount
+                );
+
 
             if (
-                totalLiquidation === 0
+                Number.isFinite(btcLong)
             ) {
 
-                totalLiquidation =
-                    longLiquidation +
-                    shortLiquidation;
+                longLiquidation =
+                    btcLong;
 
             }
 
 
-            const events =
-                Number(
-                    btc.count ||
-                    btc.events ||
-                    btc.eventCount ||
-                    0
-                );
+            if (
+                Number.isFinite(btcShort)
+            ) {
+
+                shortLiquidation =
+                    btcShort;
+
+            }
 
 
-            /* ========================== */
-            /* DISPLAY BTC DATA */
-            /* ========================== */
+            if (
+                Number.isFinite(btcTotal)
+            ) {
+
+                totalLiquidation =
+                    btcTotal;
+
+            }
 
 
-            document.getElementById(
-                "longLiquidation"
-            ).textContent =
+            if (
+                Number.isFinite(btcCount)
+            ) {
 
-                formatUSD(
-                    longLiquidation
-                );
+                eventCount =
+                    btcCount;
 
-
-            document.getElementById(
-                "shortLiquidation"
-            ).textContent =
-
-                formatUSD(
-                    shortLiquidation
-                );
-
-
-            document.getElementById(
-                "totalLiquidation"
-            ).textContent =
-
-                formatUSD(
-                    totalLiquidation
-                );
-
-
-            document.getElementById(
-                "liquidationEvents"
-            ).textContent =
-
-                events.toLocaleString(
-                    "en-US"
-                );
-
-
-            return;
+            }
 
         }
 
 
         /*
-         * If BTC-specific breakdown is
-         * not exposed in the response,
-         * show the actual API response
-         * state instead of inventing data.
+         * Calculate total if necessary.
          */
 
-        throw new Error(
-            "BTC liquidation breakdown unavailable"
-        );
+        if (
+            !Number.isFinite(totalLiquidation) ||
+            totalLiquidation === 0
+        ) {
+
+            totalLiquidation =
+                (
+                    Number.isFinite(
+                        longLiquidation
+                    )
+                        ? longLiquidation
+                        : 0
+                )
+                +
+                (
+                    Number.isFinite(
+                        shortLiquidation
+                    )
+                        ? shortLiquidation
+                        : 0
+                );
+
+        }
+
+
+        /* ================================= */
+        /* DISPLAY 24H LIQUIDATIONS */
+        /* ================================= */
+
+
+        document.getElementById(
+            "longLiquidation"
+        ).textContent =
+
+            formatUSD(
+                longLiquidation
+            );
+
+
+        document.getElementById(
+            "shortLiquidation"
+        ).textContent =
+
+            formatUSD(
+                shortLiquidation
+            );
+
+
+        document.getElementById(
+            "totalLiquidation"
+        ).textContent =
+
+            formatUSD(
+                totalLiquidation
+            );
+
+
+        document.getElementById(
+            "liquidationEvents"
+        ).textContent =
+
+            formatNumber(
+                eventCount
+            );
+
+
+        /* ================================= */
+        /* GET RECENT BTC EVENTS */
+        /* ================================= */
+
+
+        try {
+
+
+            const liveResponse =
+                await fetch(
+                    BTC_LIVE_LIQUIDATION_API
+                );
+
+
+            if (
+                liveResponse.ok
+            ) {
+
+
+                const liveResult =
+                    await liveResponse.json();
+
+
+                console.log(
+                    "BTC live liquidations:",
+                    liveResult
+                );
+
+
+                /*
+                 * API normally returns:
+                 *
+                 * {
+                 *   ok: true,
+                 *   data: {
+                 *      events: [...]
+                 *   }
+                 * }
+                 */
+
+
+                let events = [];
+
+
+                if (
+                    liveResult &&
+                    liveResult.data &&
+                    Array.isArray(
+                        liveResult.data.events
+                    )
+                ) {
+
+                    events =
+                        liveResult.data.events;
+
+                }
+                else if (
+                    liveResult &&
+                    Array.isArray(
+                        liveResult.events
+                    )
+                ) {
+
+                    events =
+                        liveResult.events;
+
+                }
+
+
+                /* ================================= */
+                /* FIND LARGEST RECENT EVENT */
+                /* ================================= */
+
+
+                let largest = 0;
+
+
+                events.forEach(
+                    function(event) {
+
+                        const notional =
+                            Number(
+                                event.notional ||
+                                event.usd ||
+                                event.value ||
+                                0
+                            );
+
+
+                        if (
+                            notional >
+                            largest
+                        ) {
+
+                            largest =
+                                notional;
+
+                        }
+
+                    }
+                );
+
+
+                if (
+                    largest > 0
+                ) {
+
+                    document.getElementById(
+                        "largestLiquidation"
+                    ).textContent =
+
+                        formatUSD(
+                            largest
+                        );
+
+                }
+
+            }
+
+        }
+        catch (
+            liveError
+        ) {
+
+            console.log(
+                "Live liquidation feed unavailable:",
+                liveError
+            );
+
+        }
 
 
     }
@@ -780,7 +1043,7 @@ async function loadLiquidations() {
     catch (error) {
 
         console.error(
-            "Liquidation error:",
+            "BTC liquidation error:",
             error
         );
 
@@ -808,24 +1071,35 @@ async function loadLiquidations() {
         ).textContent =
             "DATA ERROR";
 
+
+        document.getElementById(
+            "largestLiquidation"
+        ).textContent =
+            "DATA ERROR";
+
     }
 
 }
 
 
-/* ====================================== */
-/* APPLICATION START */
-/* ====================================== */
+/* ========================================= */
+/* APP START */
+/* ========================================= */
 
+
+/*
+ * Keep the same simple startup style
+ * as the working Binance version.
+ */
 
 loadMarket();
 
 loadLiquidations();
 
 
-/* ====================================== */
+/* ========================================= */
 /* AUTO REFRESH */
-/* ====================================== */
+/* ========================================= */
 
 
 setInterval(
