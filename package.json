@@ -1,0 +1,14 @@
+{
+  "name": "advanced-crypto-ai",
+  "version": "1.0.0",
+  "description": "Advanced Crypto AI Trading Analysis Android App",
+  "private": true,
+  "scripts": {
+    "build": "echo Build preparation complete"
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/cli": "^7.4.3"
+  }
+}
