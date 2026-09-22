@@ -1852,3 +1852,50 @@ timer = setInterval(() => {
     }
 
 }, 30000);
+<div id="jsErrorBox"
+     style="
+       position:fixed;
+       top:10px;
+       left:10px;
+       right:10px;
+       z-index:999999;
+       background:#300;
+       color:#fff;
+       padding:12px;
+       border:2px solid #f44;
+       border-radius:8px;
+       font-size:13px;
+       display:none;
+       white-space:pre-wrap;
+     ">
+</div>
+
+<script>
+window.onerror = function(message, source, lineno, colno, error) {
+
+    const box = document.getElementById("jsErrorBox");
+
+    box.style.display = "block";
+
+    box.textContent =
+        "⚠️ JAVASCRIPT ERROR\n\n" +
+        message +
+        "\n\nLine: " + lineno +
+        "\nColumn: " + colno +
+        "\n\n" +
+        (error && error.stack ? error.stack : "");
+
+};
+
+window.addEventListener("unhandledrejection", function(event) {
+
+    const box = document.getElementById("jsErrorBox");
+
+    box.style.display = "block";
+
+    box.textContent =
+        "⚠️ PROMISE ERROR\n\n" +
+        (event.reason?.stack || event.reason || "Unknown error");
+
+});
+</script>
